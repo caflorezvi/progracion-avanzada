@@ -9,13 +9,17 @@ import java.util.Map;
 public class Cliente implements Serializable {
 
     @Id
+    @Column(name = "cedula", length = 10)
     private String cedula;
+    @Column(name = "nombre_completo", length = 200, nullable = false)
     private String nombreCompleto;
+    @Column(name = "email", length = 100, nullable = false, unique = true)
     private String email;
     @Enumerated(EnumType.STRING)
+    @JoinColumn(name = "genero", nullable = false)
     private Genero genero;
-
     @ElementCollection
+    @JoinColumn(name = "num_telefono")
     private Map<String, String> numTelefono;
 
     public Cliente(){

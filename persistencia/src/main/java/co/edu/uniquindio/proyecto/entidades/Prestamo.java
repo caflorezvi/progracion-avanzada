@@ -1,7 +1,7 @@
 package co.edu.uniquindio.proyecto.entidades;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.Positive;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -9,10 +9,20 @@ import java.util.Date;
 public class Prestamo implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "numero")
     private int numero;
+    @Column(name = "valor_total", nullable = false)
+    @Positive
     private int valorTotal;
+    @Column(name = "tasa_interes", nullable = false)
+    @Positive
     private float tasaInteres;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "fecha_inicio", nullable = false)
     private Date fechaInicio;
+    @Column(name = "numero_meses", nullable = false)
+    @Positive
     private int numeroMeses;
 
     public Prestamo(){

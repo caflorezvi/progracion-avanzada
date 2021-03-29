@@ -1,9 +1,6 @@
 package co.edu.uniquindio.proyecto.entidades;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
@@ -11,8 +8,11 @@ public class Sede implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "codigo")
     private int codigo;
+    @Column(name = "direccion", nullable = false, length = 150)
     private String direccion;
+    @Column(name = "ciudad", nullable = false, length = 120)
     private String ciudad;
 
     public Sede(){

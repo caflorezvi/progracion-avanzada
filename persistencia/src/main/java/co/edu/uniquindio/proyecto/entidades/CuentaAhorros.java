@@ -1,7 +1,7 @@
 package co.edu.uniquindio.proyecto.entidades;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.Positive;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -9,8 +9,14 @@ import java.util.Date;
 public class CuentaAhorros implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "numero")
     private int numero;
+    @Column(name = "saldo", nullable = false)
+    @Positive
     private int saldo;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "fecha_apertura", nullable = false)
     private Date fechaApertura;
 
     public CuentaAhorros(){
