@@ -19,6 +19,12 @@ public class CuentaAhorros implements Serializable {
     @Column(name = "fecha_apertura", nullable = false)
     private Date fechaApertura;
 
+    @ManyToOne
+    private Cliente clienteCuenta;
+
+    @ManyToOne
+    private Sede sede;
+
     public CuentaAhorros(){
         super();
     }

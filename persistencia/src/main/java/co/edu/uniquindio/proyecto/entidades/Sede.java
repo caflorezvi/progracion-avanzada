@@ -2,6 +2,7 @@ package co.edu.uniquindio.proyecto.entidades;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 public class Sede implements Serializable {
@@ -14,6 +15,15 @@ public class Sede implements Serializable {
     private String direccion;
     @Column(name = "ciudad", nullable = false, length = 120)
     private String ciudad;
+
+    @OneToMany(mappedBy = "sede")
+    private List<CuentaAhorros> cuentaAhorros;
+
+    @ManyToMany(mappedBy = "sedes")
+    private List<Cliente> clientes;
+
+    @OneToMany(mappedBy = "sede")
+    private List<Empleado> empleados;
 
     public Sede(){
         super();

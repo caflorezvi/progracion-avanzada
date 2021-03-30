@@ -25,6 +25,9 @@ public class Prestamo implements Serializable {
     @Positive
     private int numeroMeses;
 
+    @ManyToOne
+    private Cliente clientePrestamo;
+
     public Prestamo(){
         super();
     }
