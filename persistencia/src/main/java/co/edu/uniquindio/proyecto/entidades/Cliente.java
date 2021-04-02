@@ -2,6 +2,7 @@ package co.edu.uniquindio.proyecto.entidades;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -24,4 +25,8 @@ public class Cliente extends Persona implements Serializable {
         super();
     }
 
+    public Cliente(String cedula, String nombreCompleto, String email, Genero genero, Date fechaNacimiento, Boolean tieneCuentaOtroBanco) {
+        super(cedula, nombreCompleto, email, genero, fechaNacimiento);
+        this.tieneCuentaOtroBanco = tieneCuentaOtroBanco;
+    }
 }

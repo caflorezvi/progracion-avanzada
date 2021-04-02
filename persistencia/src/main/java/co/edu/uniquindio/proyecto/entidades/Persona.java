@@ -31,6 +31,14 @@ public class Persona implements Serializable {
         super();
     }
 
+    public Persona(String cedula, String nombreCompleto, String email, Genero genero, Date fechaNacimiento) {
+        this.cedula = cedula;
+        this.nombreCompleto = nombreCompleto;
+        this.email = email;
+        this.genero = genero;
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
     public String getCedula() {
         return cedula;
     }
@@ -84,5 +92,17 @@ public class Persona implements Serializable {
     @Override
     public int hashCode() {
         return cedula != null ? cedula.hashCode() : 0;
+    }
+
+    @Override
+    public String toString() {
+        return "Persona{" +
+                "cedula='" + cedula + '\'' +
+                ", nombreCompleto='" + nombreCompleto + '\'' +
+                ", email='" + email + '\'' +
+                ", genero=" + genero +
+                ", numTelefono=" + numTelefono +
+                ", fechaNacimiento=" + fechaNacimiento +
+                '}';
     }
 }
