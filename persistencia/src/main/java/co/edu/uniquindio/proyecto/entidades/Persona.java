@@ -2,57 +2,60 @@ package co.edu.uniquindio.proyecto.entidades;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.Map;
 
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @MappedSuperclass
 public class Persona implements Serializable {
 
     @Id
-    @Column(name = "cedula", length = 10)
-    private String cedula;
-    @Column(name = "nombre_completo", length = 200, nullable = false)
-    private String nombreCompleto;
-    @Column(name = "email", length = 100, nullable = false, unique = true)
-    private String email;
-    @Enumerated(EnumType.STRING)
-    @JoinColumn(name = "genero", nullable = false)
-    private Genero genero;
-    @ElementCollection
-    @JoinColumn(name = "num_telefono")
-    private Map<String, String> numTelefono;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-    @Column(name = "fecha_nacimiento", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date fechaNacimiento;
+    @Column(length = 200, nullable = false)
+    private String nombre;
+
+    @Column(length = 100, nullable = false, unique = true)
+    private String nickname;
+
+    @Column(length = 200, nullable = false, unique = true)
+    private String email;
+
+    @Column(nullable = false)
+    private String password;
 
     public Persona(){
         super();
     }
 
-    public Persona(String cedula, String nombreCompleto, String email, Genero genero, Date fechaNacimiento) {
-        this.cedula = cedula;
-        this.nombreCompleto = nombreCompleto;
+    public Persona(String nombre, String nickname, String email, String password) {
+        this.nombre = nombre;
+        this.nickname = nickname;
         this.email = email;
-        this.genero = genero;
-        this.fechaNacimiento = fechaNacimiento;
+        this.password = password;
     }
 
-    public String getCedula() {
-        return cedula;
+    public Integer getId() {
+        return id;
     }
 
-    public void setCedula(String cedula) {
-        this.cedula = cedula;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getNombreCompleto() {
-        return nombreCompleto;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNombreCompleto(String nombreCompleto) {
-        this.nombreCompleto = nombreCompleto;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public String getEmail() {
@@ -63,20 +66,12 @@ public class Persona implements Serializable {
         this.email = email;
     }
 
-    public Genero getGenero() {
-        return genero;
+    public String getPassword() {
+        return password;
     }
 
-    public void setGenero(Genero genero) {
-        this.genero = genero;
-    }
-
-    public Map<String, String> getNumTelefono() {
-        return numTelefono;
-    }
-
-    public void setNumTelefono(Map<String, String> numTelefono) {
-        this.numTelefono = numTelefono;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
@@ -86,23 +81,22 @@ public class Persona implements Serializable {
 
         Persona persona = (Persona) o;
 
-        return cedula != null ? cedula.equals(persona.cedula) : persona.cedula == null;
+        return id != null ? id.equals(persona.id) : persona.id == null;
     }
 
     @Override
     public int hashCode() {
-        return cedula != null ? cedula.hashCode() : 0;
+        return id != null ? id.hashCode() : 0;
     }
 
     @Override
     public String toString() {
         return "Persona{" +
-                "cedula='" + cedula + '\'' +
-                ", nombreCompleto='" + nombreCompleto + '\'' +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", nickname='" + nickname + '\'' +
                 ", email='" + email + '\'' +
-                ", genero=" + genero +
-                ", numTelefono=" + numTelefono +
-                ", fechaNacimiento=" + fechaNacimiento +
+                ", password='" + password + '\'' +
                 '}';
     }
 }

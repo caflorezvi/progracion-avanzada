@@ -1,4 +1,0 @@
-insert into cliente(cedula, email, genero, nombre_completo, fecha_nacimiento, tiene_cuenta_otro_banco) values ("123", "pepe1@email.com", "MASCULINO", "Pepito", "1996/02/12", 1);
-insert into cliente(cedula, email, genero, nombre_completo, fecha_nacimiento, tiene_cuenta_otro_banco) values ("124", "pepe2@email.com", "MASCULINO", "Pepito", "1996/02/12", 1);
-insert into cliente(cedula, email, genero, nombre_completo, fecha_nacimiento, tiene_cuenta_otro_banco) values ("125", "pepe3@email.com", "MASCULINO", "Pepito", "1996/02/12", 0);
-insert into cliente(cedula, email, genero, nombre_completo, fecha_nacimiento, tiene_cuenta_otro_banco) values ("126", "pepe4@email.com", "MASCULINO", "Pepito", "1996/02/12", 0);
