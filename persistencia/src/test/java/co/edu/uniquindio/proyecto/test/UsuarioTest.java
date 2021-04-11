@@ -9,6 +9,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.jdbc.Sql;
 
 import java.util.List;
@@ -85,9 +88,26 @@ public class UsuarioTest {
 
     @Test
     @Sql("classpath:usuarios.sql")
-    public void listarUsuarios(){
+    public void listarUsuariosTest(){
 
         List<Usuario> lista = usuarioRepo.findAll();
         System.out.println(lista);
+    }
+
+    @Test
+    @Sql("classpath:usuarios.sql")
+    public void iniciarSesionTest(){
+        Usuario u = usuarioRepo.findByEmailAndPassword("carlos@email.com", "1234");
+        Assertions.assertNotNull(u);
+    }
+
+    @Test
+    @Sql("classpath:usuarios.sql")
+    public void listarUsuariosPaginadosTest(){
+
+        List<Usuario> lista = usuarioRepo.findAll(Sort.by("nombre"));
+        for(Usuario u : lista){
+            System.out.println(u);
+        }
     }
 }
