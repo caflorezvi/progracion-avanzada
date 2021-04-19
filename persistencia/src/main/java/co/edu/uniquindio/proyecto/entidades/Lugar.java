@@ -36,9 +36,15 @@ public class Lugar implements Serializable {
 
     @ElementCollection
     @JoinColumn(nullable = false)
+    @Column(name="url_imagen")
     private List<String> imagenes;
 
     @ElementCollection
+    @CollectionTable(
+            name = "lugar_telefonos",
+            joinColumns=@JoinColumn(name = "id_lugar", referencedColumnName = "id")
+    )
+    @Column(name="numero_telefono")
     private List<String> telefonos;
 
     @ManyToOne
@@ -62,7 +68,7 @@ public class Lugar implements Serializable {
     @OneToMany(mappedBy = "lugar")
     private List<Comentario> comentarios;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "lugaresFavoritos")
     private List<Usuario> usuariosFavoritos;
 
     public Lugar(){
@@ -224,5 +230,26 @@ public class Lugar implements Serializable {
     @Override
     public int hashCode() {
         return id.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "Lugar{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", fechaCreacion=" + fechaCreacion +
+                ", latitud=" + latitud +
+                ", longitud=" + longitud +
+                ", fechaAprobacion=" + fechaAprobacion +
+                ", estado=" + estado +
+                ", imagenes=" + imagenes +
+                ", telefonos=" + telefonos +
+                ", moderador=" + moderador +
+                ", tipo=" + tipo +
+                ", usuarioCreador=" + usuarioCreador +
+                ", ciudad=" + ciudad +
+                ", horarios=" + horarios +
+                '}';
     }
 }

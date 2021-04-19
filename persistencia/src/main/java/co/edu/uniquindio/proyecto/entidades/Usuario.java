@@ -11,7 +11,11 @@ public class Usuario extends Persona implements Serializable {
     @JoinColumn(nullable = false)
     private Ciudad ciudad;
 
-    @ManyToMany(mappedBy = "usuariosFavoritos")
+    @ManyToMany
+    @JoinTable(
+            name = "favorito",
+            joinColumns = @JoinColumn(name = "id_usuario"),
+            inverseJoinColumns = @JoinColumn(name = "id_lugar"))
     private List<Lugar> lugaresFavoritos;
 
     @OneToMany(mappedBy = "usuario")

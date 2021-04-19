@@ -1,8 +1,12 @@
 package co.edu.uniquindio.proyecto.test;
 
+import co.edu.uniquindio.proyecto.dto.ComentariosLugarDTO;
 import co.edu.uniquindio.proyecto.entidades.Ciudad;
+import co.edu.uniquindio.proyecto.entidades.Comentario;
+import co.edu.uniquindio.proyecto.entidades.Lugar;
 import co.edu.uniquindio.proyecto.entidades.Usuario;
 import co.edu.uniquindio.proyecto.repositorios.CiudadRepo;
+import co.edu.uniquindio.proyecto.repositorios.LugarRepo;
 import co.edu.uniquindio.proyecto.repositorios.UsuarioRepo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -10,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.context.jdbc.Sql;
 
@@ -25,6 +28,9 @@ public class UsuarioTest {
 
     @Autowired
     private CiudadRepo ciudadRepo;
+
+    @Autowired
+    private LugarRepo lugarRepo;
 
     @Test
     public void registrarUsuarioTest(){
@@ -87,27 +93,67 @@ public class UsuarioTest {
     }
 
     @Test
-    @Sql("classpath:usuarios.sql")
+    @Sql("classpath:unilocal.sql")
     public void listarUsuariosTest(){
-
         List<Usuario> lista = usuarioRepo.findAll();
         System.out.println(lista);
     }
 
     @Test
-    @Sql("classpath:usuarios.sql")
+    @Sql("classpath:unilocal.sql")
     public void iniciarSesionTest(){
         Usuario u = usuarioRepo.findByEmailAndPassword("carlos@email.com", "1234");
         Assertions.assertNotNull(u);
     }
 
     @Test
-    @Sql("classpath:usuarios.sql")
+    @Sql("classpath:unilocal.sql")
     public void listarUsuariosPaginadosTest(){
+        List<Usuario> lista = usuarioRepo.obtenerUsuarios(PageRequest.of(1, 3));
+        for(Usuario u : lista){
+            System.out.println(u);
+        }
+    }
 
+    @Test
+    @Sql("classpath:unilocal.sql")
+    public void listarUsuariosOrdenadosTest(){
         List<Usuario> lista = usuarioRepo.findAll(Sort.by("nombre"));
         for(Usuario u : lista){
             System.out.println(u);
         }
+    }
+
+    @Test
+    @Sql("classpath:unilocal.sql")
+    public void obtenerTipoLugarTest(){
+        List<Object[]> infoLugar = lugarRepo.obtenerTiposLugares();
+
+        for ( Object[]  arr: infoLugar) {
+            System.out.println(arr[0]+ ", "+arr[1]+", "+arr[2]);
+        }
+
+    }
+
+    @Test
+    @Sql("classpath:unilocal.sql")
+    public void obtenerLugaresFavoritos(){
+        List<Lugar> lugares = usuarioRepo.obtenerLugaresFavoritos2(1);
+
+        for ( Lugar l: lugares) {
+            System.out.println(l);
+        }
+
+    }
+
+    @Test
+    @Sql("classpath:unilocal.sql")
+    public void obtenerUsuariosTest(){
+        List<ComentariosLugarDTO> usuarios = lugarRepo.obtenerComentariosLugares();
+
+        for ( ComentariosLugarDTO l: usuarios) {
+            System.out.println( l.getLugar().getNombre()+" "+l.getComentario().getComentario() );
+        }
+
     }
 }
