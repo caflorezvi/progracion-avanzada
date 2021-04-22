@@ -2,6 +2,7 @@ package co.edu.uniquindio.proyecto.entidades;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 public class Horario implements Serializable {
@@ -10,11 +11,13 @@ public class Horario implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Temporal(TemporalType.TIME)
     @Column(nullable = false)
-    private String horaInicio;
+    private Date horaInicio;
 
+    @Temporal(TemporalType.TIME)
     @Column(nullable = false)
-    private String horaFin;
+    private Date horaFin;
 
     @Column(nullable = false)
     private String diaSemana;
@@ -27,7 +30,7 @@ public class Horario implements Serializable {
         super();
     }
 
-    public Horario(String horaInicio, String horaFin, String diaSemana) {
+    public Horario(Date horaInicio, Date horaFin, String diaSemana) {
         this.horaInicio = horaInicio;
         this.horaFin = horaFin;
         this.diaSemana = diaSemana;
@@ -41,19 +44,19 @@ public class Horario implements Serializable {
         this.id = id;
     }
 
-    public String getHoraInicio() {
+    public Date getHoraInicio() {
         return horaInicio;
     }
 
-    public void setHoraInicio(String horaInicio) {
+    public void setHoraInicio(Date horaInicio) {
         this.horaInicio = horaInicio;
     }
 
-    public String getHoraFin() {
+    public Date getHoraFin() {
         return horaFin;
     }
 
-    public void setHoraFin(String horaFin) {
+    public void setHoraFin(Date horaFin) {
         this.horaFin = horaFin;
     }
 

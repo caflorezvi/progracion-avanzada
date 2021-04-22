@@ -118,7 +118,7 @@ public class UsuarioTest {
     @Test
     @Sql("classpath:unilocal.sql")
     public void listarUsuariosOrdenadosTest(){
-        List<Usuario> lista = usuarioRepo.findAll(Sort.by("nombre"));
+        List<Usuario> lista = usuarioRepo.obtenerUsuarios(Sort.by("fecha_nacimiento"));
         for(Usuario u : lista){
             System.out.println(u);
         }

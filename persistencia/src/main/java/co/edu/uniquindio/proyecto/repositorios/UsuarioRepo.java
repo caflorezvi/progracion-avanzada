@@ -21,7 +21,7 @@ public interface UsuarioRepo extends JpaRepository<Usuario, Integer> {
     List<Usuario> obtenerUsuarios(Pageable pageable);
 
     @Query("select u from Usuario u")
-    List<Usuario> obtenerUsuarios(Sort pageable);
+    List<Usuario> obtenerUsuarios(Sort sort);
 
     @Query("select u from Usuario u where u.email = :email and u.nombre = :nombre")
     Usuario obtenerUsario( @Param("email") String email, @Param("nombre") String nombre);
@@ -42,5 +42,14 @@ public interface UsuarioRepo extends JpaRepository<Usuario, Integer> {
 
     @Query("select u.email, l from Usuario u left join u.lugaresCreados l")
     List<Object[]> obtenerLugaresPublicadosUsuarios();
+
+    @Query("select u from Usuario u order by u.nombre")
+    List<Usuario> obtenerListaUsuariosAlfabeticamente();
+
+    @Query("select u from Usuario u where u.email like '%@gmail.%' ")
+    List<Usuario> obtenerUsuariosDeGmail();
+
+    @Query("select u from Usuario u where u.email like concat('%', :dominio, '%') ")
+    List<Usuario> obtenerUsuariosDeDominio(String dominio);
 
 }
