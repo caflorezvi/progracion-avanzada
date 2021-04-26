@@ -17,6 +17,8 @@ insert into tipo_lugar(id, nombre) values (2, "Pizza");
 
 insert into lugar(id, descripcion, estado, fecha_aprobacion, fecha_creacion, latitud, longitud, nombre, ciudad_id, moderador_id, tipo_id, usuario_creador_id) values (1, "La mejor pizza", 1, "2021/01/22", "2021/01/22", 4.76222, 72.34344, "Pizza Bambini", 1, 1, 2, 2);
 insert into lugar(id, descripcion, estado, fecha_aprobacion, fecha_creacion, latitud, longitud, nombre, ciudad_id, moderador_id, tipo_id, usuario_creador_id) values (2, "Restaurante paisa los mejores frijoles", 1, "2020/12/04", "2020/12/04", 4.76222, 72.34344, "El paisa", 2, 1, 1, 3);
+insert into lugar(id, descripcion, estado, fecha_aprobacion, fecha_creacion, latitud, longitud, nombre, ciudad_id, moderador_id, tipo_id, usuario_creador_id) values (3, "Una pizza muy interesante", 1, "2021/02/22", "2021/03/22", 4.76222, 72.34344, "Pizza 2x3", 1, 1, 2, 4);
+insert into lugar(id, descripcion, estado, fecha_aprobacion, fecha_creacion, latitud, longitud, nombre, ciudad_id, moderador_id, tipo_id, usuario_creador_id) values (4, "Restaurante cool", 1, "2021/02/22", "2021/03/22", 4.76222, 72.34344, "Restaurante XL", 1, 1, 1, 2);
 
 insert into lugar_imagenes(lugar_id, url_imagen) values (1, "ruta/img1.png");
 insert into lugar_imagenes(lugar_id, url_imagen) values (2, "ruta/img2.png");
@@ -28,9 +30,10 @@ insert into lugar_telefonos(id_lugar, numero_telefono) values (2, "3129991234");
 insert into lugar_telefonos(id_lugar, numero_telefono) values (1, "7508123");
 insert into lugar_telefonos(id_lugar, numero_telefono) values (1, "3102126511");
 
-insert into comentario(id,  calificacion, comentario, fecha_creacion, respuesta, lugar_id, usuario_id) values (1, 3, "Muy regular u_u", "2021/04/01 12:32:12", "", 1, 5);
-insert into comentario(id,  calificacion, comentario, fecha_creacion, respuesta, lugar_id, usuario_id) values (2, 4, "Muy bueno", "2021/01/11 16:32:12", "", 1, 4);
-insert into comentario(id,  calificacion, comentario, fecha_creacion, respuesta, lugar_id, usuario_id) values (3, 1, "Mala atención", "2021/03/17 13:32:12", "", 2, 1);
+insert into comentario(id, calificacion, comentario, fecha_creacion, respuesta, lugar_id, usuario_id) values (1, 3, "Muy regular u_u", "2021/04/01 12:32:12", "", 1, 5);
+insert into comentario(id, calificacion, comentario, fecha_creacion, respuesta, lugar_id, usuario_id) values (2, 4, "Muy bueno", "2021/01/11 16:32:12", "", 1, 4);
+insert into comentario(id, calificacion, comentario, fecha_creacion, respuesta, lugar_id, usuario_id) values (3, 1, "Mala atención", "2021/03/17 13:32:12", "", 2, 1);
+insert into comentario(id, calificacion, comentario, fecha_creacion, respuesta, lugar_id, usuario_id) values (4, 5, "Excelente", "2021/04/21 07:11:01", "", 3, 1);
 
 insert into favorito(id_usuario, id_lugar) values (1, 1);
 insert into favorito(id_usuario, id_lugar) values (3, 1);

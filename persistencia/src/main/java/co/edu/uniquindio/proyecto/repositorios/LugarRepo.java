@@ -46,4 +46,11 @@ public interface LugarRepo extends JpaRepository<Lugar, Integer> {
 
     @Query("select avg(c.calificacion) from Lugar l join l.comentarios c where l.id = :idLugar")
     float obtenerCalificacionPromedio(Integer idLugar);
+
+    @Query("select l.id, avg(c.calificacion) as calificacion from Lugar l join l.comentarios c where l.ciudad.id = :idCiudad group by l.id order by calificacion")
+    List<Object[]> obtenerLugarCalificacionAlta(Integer idCiudad);
+
+    @Query("select l.tipo, avg(c.calificacion) as calificacion from Lugar l left join l.comentarios c where l.ciudad.id = :idCiudad group by l.tipo order by calificacion")
+    List<Object[]> obtenerCategoriaMasCalificada(Integer idCiudad);
+
 }

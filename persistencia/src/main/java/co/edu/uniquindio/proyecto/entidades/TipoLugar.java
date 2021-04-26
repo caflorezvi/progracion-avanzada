@@ -56,4 +56,12 @@ public class TipoLugar implements Serializable {
     public int hashCode() {
         return id.hashCode();
     }
+
+    @Override
+    public String toString() {
+        return "TipoLugar{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                '}';
+    }
 }

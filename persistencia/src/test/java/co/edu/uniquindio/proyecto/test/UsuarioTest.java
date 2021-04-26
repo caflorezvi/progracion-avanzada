@@ -156,4 +156,26 @@ public class UsuarioTest {
         }
 
     }
+
+    @Test
+    @Sql("classpath:unilocal.sql")
+    public void obtenerTipoLugarPopular(){
+        List<Object[]> categorias = lugarRepo.obtenerTipoLugarPopular();
+
+        for ( Object[] c: categorias) {
+            System.out.println( c[0]+" "+c[1] );
+        }
+
+    }
+
+    @Test
+    @Sql("classpath:unilocal.sql")
+    public void obtenerLugarCalificacionAlta(){
+        List<Object[]> categorias = lugarRepo.obtenerCategoriaMasCalificada(1);
+
+        for ( Object[] c: categorias) {
+            System.out.println( c[0]+" "+c[1] );
+        }
+
+    }
 }
