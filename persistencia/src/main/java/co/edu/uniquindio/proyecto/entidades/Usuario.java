@@ -8,7 +8,6 @@ import java.util.List;
 public class Usuario extends Persona implements Serializable {
 
     @ManyToOne
-    @JoinColumn(nullable = false)
     private Ciudad ciudad;
 
     @ManyToMany
