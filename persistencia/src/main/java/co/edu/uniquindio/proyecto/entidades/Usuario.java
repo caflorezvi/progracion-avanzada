@@ -1,15 +1,20 @@
 package co.edu.uniquindio.proyecto.entidades;
 
+import lombok.*;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
 @Entity
+@NoArgsConstructor
+@ToString
 public class Usuario extends Persona implements Serializable {
 
-    @ManyToOne
+    @Getter @Setter @ManyToOne
     private Ciudad ciudad;
 
+    @Getter @Setter
     @ManyToMany
     @JoinTable(
             name = "favorito",
@@ -23,35 +28,9 @@ public class Usuario extends Persona implements Serializable {
     @OneToMany(mappedBy = "usuarioCreador")
     private List<Lugar> lugaresCreados;
 
-    public Usuario(){
-        super();
-    }
-
     public Usuario(String nombre, String nickname, String email, String password, Ciudad ciudad) {
         super(nombre, nickname, email, password);
         this.ciudad = ciudad;
     }
 
-    public Ciudad getCiudad() {
-        return ciudad;
-    }
-
-    public void setCiudad(Ciudad ciudad) {
-        this.ciudad = ciudad;
-    }
-
-    public List<Lugar> getLugaresFavoritos() {
-        return lugaresFavoritos;
-    }
-
-    public void setLugaresFavoritos(List<Lugar> lugaresFavoritos) {
-        this.lugaresFavoritos = lugaresFavoritos;
-    }
-
-    @Override
-    public String toString() {
-        return "Usuario{" +
-                "ciudad=" + ciudad +
-                "} " + super.toString();
-    }
 }

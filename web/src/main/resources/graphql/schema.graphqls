@@ -1,0 +1,22 @@
+schema {
+    query: Query
+}
+
+type Query {
+    getUsers: [Usuario]
+    getUser(id:ID, nombre:String): Usuario
+}
+
+type Usuario {
+    id:ID,
+    nombre:String,
+    email:String,
+    nickname:String,
+    ciudad:Ciudad
+}
+
+type Ciudad{
+    id:ID,
+    nombre:String,
+    usuarios:[Usuario]
+}

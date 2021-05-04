@@ -1,9 +1,6 @@
 package co.edu.uniquindio.proyecto.test;
 
-import co.edu.uniquindio.proyecto.dto.ComentariosLugarDTO;
 import co.edu.uniquindio.proyecto.entidades.Ciudad;
-import co.edu.uniquindio.proyecto.entidades.Comentario;
-import co.edu.uniquindio.proyecto.entidades.Lugar;
 import co.edu.uniquindio.proyecto.entidades.Usuario;
 import co.edu.uniquindio.proyecto.repositorios.CiudadRepo;
 import co.edu.uniquindio.proyecto.repositorios.LugarRepo;
@@ -13,10 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.test.context.jdbc.Sql;
-
 import java.util.List;
 
 @DataJpaTest
@@ -106,76 +100,4 @@ public class UsuarioTest {
         Assertions.assertNotNull(u);
     }
 
-    @Test
-    @Sql("classpath:unilocal.sql")
-    public void listarUsuariosPaginadosTest(){
-        List<Usuario> lista = usuarioRepo.obtenerUsuarios(PageRequest.of(1, 3));
-        for(Usuario u : lista){
-            System.out.println(u);
-        }
-    }
-
-    @Test
-    @Sql("classpath:unilocal.sql")
-    public void listarUsuariosOrdenadosTest(){
-        List<Usuario> lista = usuarioRepo.obtenerUsuarios(Sort.by("fecha_nacimiento"));
-        for(Usuario u : lista){
-            System.out.println(u);
-        }
-    }
-
-    @Test
-    @Sql("classpath:unilocal.sql")
-    public void obtenerTipoLugarTest(){
-        List<Object[]> infoLugar = lugarRepo.obtenerTiposLugares();
-
-        for ( Object[]  arr: infoLugar) {
-            System.out.println(arr[0]+ ", "+arr[1]+", "+arr[2]);
-        }
-
-    }
-
-    @Test
-    @Sql("classpath:unilocal.sql")
-    public void obtenerLugaresFavoritos(){
-        List<Lugar> lugares = usuarioRepo.obtenerLugaresFavoritos2(1);
-
-        for ( Lugar l: lugares) {
-            System.out.println(l);
-        }
-
-    }
-
-    @Test
-    @Sql("classpath:unilocal.sql")
-    public void obtenerUsuariosTest(){
-        List<ComentariosLugarDTO> usuarios = lugarRepo.obtenerComentariosLugares();
-
-        for ( ComentariosLugarDTO l: usuarios) {
-            System.out.println( l.getLugar().getNombre()+" "+l.getComentario().getComentario() );
-        }
-
-    }
-
-    @Test
-    @Sql("classpath:unilocal.sql")
-    public void obtenerTipoLugarPopular(){
-        List<Object[]> categorias = lugarRepo.obtenerTipoLugarPopular();
-
-        for ( Object[] c: categorias) {
-            System.out.println( c[0]+" "+c[1] );
-        }
-
-    }
-
-    @Test
-    @Sql("classpath:unilocal.sql")
-    public void obtenerLugarCalificacionAlta(){
-        List<Object[]> categorias = lugarRepo.obtenerCategoriaMasCalificada(1);
-
-        for ( Object[] c: categorias) {
-            System.out.println( c[0]+" "+c[1] );
-        }
-
-    }
 }
