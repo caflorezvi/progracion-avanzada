@@ -1,10 +1,26 @@
 schema {
-    query: Query
+    query: Query,
+    mutation: Mutation
 }
 
 type Query {
     getUsers: [Usuario]
-    getUser(id:ID): Usuario
+    getUser(id:ID, nombre:String): Usuario
+}
+
+type Mutation{
+    createUser(u:UsuarioInput):Usuario,
+    deleteUser(id:ID):Boolean,
+    updateUser(u:UsuarioInput):Usuario
+}
+
+input UsuarioInput{
+    id:ID,
+    nombre:String,
+    email:String,
+    nickname:String,
+    password:String,
+    ciudadId:Int
 }
 
 type Usuario {
@@ -12,6 +28,7 @@ type Usuario {
     nombre:String,
     email:String,
     nickname:String,
+    password:String,
     ciudad:Ciudad
 }
 
