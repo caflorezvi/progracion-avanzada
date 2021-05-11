@@ -41,15 +41,24 @@ public class UsuarioServicioImpl implements UsuarioServicio{
 
     @Override
     public Usuario actualizarUsuario(Usuario u) throws Exception {
-        // agregar validaciones
-        usuarioRepo.save(u);
-        return null;
+        Optional<Usuario> usuario = usuarioRepo.findById(u.getId());
+
+        if(usuario.isEmpty()){
+            throw new Exception("No existe un usuario con el id dado");
+        }
+
+        return usuarioRepo.save(u);
     }
 
     @Override
-    public void eliminarUsuario(Usuario u) throws Exception {
-        //Validar que el usuario si exista en la bd
-        usuarioRepo.delete(u);
+    public void eliminarUsuario(Integer id) throws Exception {
+        Optional<Usuario> usuario = usuarioRepo.findById(id);
+
+        if(usuario.isEmpty()){
+            throw new Exception("No existe un usuario con el id dado");
+        }
+
+        usuarioRepo.deleteById(id);
     }
 
     @Override

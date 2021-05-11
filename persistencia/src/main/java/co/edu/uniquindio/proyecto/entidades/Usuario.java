@@ -1,20 +1,23 @@
 package co.edu.uniquindio.proyecto.entidades;
 
 import lombok.*;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @NoArgsConstructor
-@ToString
+@ToString(callSuper = true, onlyExplicitlyIncluded = true)
 public class Usuario extends Persona implements Serializable {
 
-    @Getter @Setter @ManyToOne
+    @Getter
+    @Setter
+    @ManyToOne
+    @ToString.Include
     private Ciudad ciudad;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     @ManyToMany
     @JoinTable(
             name = "favorito",
@@ -33,4 +36,7 @@ public class Usuario extends Persona implements Serializable {
         this.ciudad = ciudad;
     }
 
+    public Usuario(Integer id, String nombre, String nickname, String email, String password) {
+        super(id, nombre, nickname, email, password);
+    }
 }

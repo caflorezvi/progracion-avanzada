@@ -9,7 +9,7 @@ public interface UsuarioServicio {
 
     Usuario actualizarUsuario(Usuario u) throws Exception;
 
-    void eliminarUsuario(Usuario u) throws Exception;
+    void eliminarUsuario(Integer id) throws Exception;
 
     Usuario obtenerUsuario(Integer id) throws Exception;
 
