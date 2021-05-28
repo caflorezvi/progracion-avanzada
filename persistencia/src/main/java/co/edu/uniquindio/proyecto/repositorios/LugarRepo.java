@@ -13,4 +13,8 @@ public interface LugarRepo extends JpaRepository<Lugar, Integer> {
     @Query("select l from Lugar l join l.horarios h where l.estado = true and h.diaSemana = :diaSemana and :horaActual between h.horaInicio and h.horaFin ")
     List<Lugar> obtenerLugaresAbiertos(String diaSemana, Date horaActual);
 
+    //lugares que estén aprobados por algún moderador
+    @Query("select l from Lugar l where l.nombre like concat('%', :nombre, '%') ")
+    List<Lugar> buscarLugares(String nombre);
+
 }

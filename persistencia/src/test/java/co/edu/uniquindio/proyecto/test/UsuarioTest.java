@@ -29,17 +29,19 @@ public class UsuarioTest {
     @Test
     public void registrarUsuarioTest(){
         try {
-
-            Ciudad ciudad = new Ciudad("Armenia");
+            Ciudad ciudad = Ciudad.builder().nombre("Armenia").build();
             ciudadRepo.save(ciudad);
 
-            Usuario usuarioNuevo = new Usuario("Pepito", "pepe123", "pepe@gmail.com", "1234", ciudad);
+            Usuario usuarioNuevo = Usuario.builder()
+                    .nombre("Pepito")
+                    .ciudad(ciudad)
+                    .nickname("pepe123")
+                    .password("1234")
+                    .email("pepe@gmail.com").build();
+
             Usuario usuarioGuardado = usuarioRepo.save(usuarioNuevo);
-
             System.out.println(usuarioGuardado);
-
             Assertions.assertNotNull(usuarioGuardado);
-
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -48,18 +50,21 @@ public class UsuarioTest {
     @Test
     public void eliminarUsuarioTest(){
         try {
-
-            Ciudad ciudad = new Ciudad("Armenia");
+            Ciudad ciudad = Ciudad.builder().nombre("Armenia").build();
             ciudadRepo.save(ciudad);
 
-            Usuario usuarioNuevo = new Usuario("Pepito", "pepe123", "pepe@gmail.com", "1234", ciudad);
-            usuarioRepo.save(usuarioNuevo);
+            Usuario usuarioNuevo = Usuario.builder()
+                    .nombre("Pepito")
+                    .ciudad(ciudad)
+                    .nickname("pepe123")
+                    .password("1234")
+                    .email("pepe@gmail.com").build();
 
+            usuarioRepo.save(usuarioNuevo);
             usuarioRepo.delete(usuarioNuevo);
 
             Usuario usuarioBorrado = usuarioRepo.findById(1).orElse(null);
             Assertions.assertNull(usuarioBorrado);
-
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -69,10 +74,16 @@ public class UsuarioTest {
     public void actualizarUsuarioTest(){
         try {
 
-            Ciudad ciudad = new Ciudad("Armenia");
+            Ciudad ciudad = Ciudad.builder().nombre("Armenia").build();
             ciudadRepo.save(ciudad);
 
-            Usuario usuarioNuevo = new Usuario("Pepito", "pepe123", "pepe@gmail.com", "1234", ciudad);
+            Usuario usuarioNuevo = Usuario.builder()
+                    .nombre("Pepito")
+                    .ciudad(ciudad)
+                    .nickname("pepe123")
+                    .password("1234")
+                    .email("pepe@gmail.com").build();
+
             Usuario usuarioGuardado = usuarioRepo.save(usuarioNuevo);
 
             usuarioGuardado.setEmail("pepito@mail.com");

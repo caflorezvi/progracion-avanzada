@@ -1,7 +1,6 @@
 package co.edu.uniquindio.proyecto.entidades;
 
 import lombok.*;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -32,6 +31,7 @@ public class Ciudad implements Serializable {
     @OneToMany(mappedBy = "ciudad")
     private List<Usuario> usuarios;
 
+    @Builder
     public Ciudad(String nombre) {
         this.nombre = nombre;
     }

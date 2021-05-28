@@ -2,14 +2,14 @@ package co.edu.uniquindio.proyecto.bean;
 
 import co.edu.uniquindio.proyecto.entidades.Usuario;
 import co.edu.uniquindio.proyecto.servicios.UsuarioServicio;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
-
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
 import java.io.Serializable;
 
 @Component
@@ -18,6 +18,8 @@ public class UsuarioBean implements Serializable {
 
     @Autowired
     private UsuarioServicio usuarioServicio;
+
+    @Getter @Setter
     private Usuario usuario;
 
     @PostConstruct
@@ -36,11 +38,4 @@ public class UsuarioBean implements Serializable {
         }
     }
 
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
 }

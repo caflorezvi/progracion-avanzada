@@ -8,6 +8,7 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @ToString(callSuper = true, onlyExplicitlyIncluded = true)
+@AllArgsConstructor
 public class Usuario extends Persona implements Serializable {
 
     @Getter
@@ -31,6 +32,7 @@ public class Usuario extends Persona implements Serializable {
     @OneToMany(mappedBy = "usuarioCreador")
     private List<Lugar> lugaresCreados;
 
+    @Builder
     public Usuario(String nombre, String nickname, String email, String password, Ciudad ciudad) {
         super(nombre, nickname, email, password);
         this.ciudad = ciudad;
