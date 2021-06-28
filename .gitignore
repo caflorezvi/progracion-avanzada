@@ -1,24 +1,13 @@
 *.class
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
-*.jar
-*.war
-*.ear
-
-#Gradle temporary files
+#Maven temporary files
 web/target/
-
-#Eclipse files
-**/.project
-**/.classpath
-**/.settings/
-blog/bin/
-**/.tern-project
+negocio/target/
+persistencia/target/
 
 #IntelliJ files
 **/*.iml
 **/.idea
-**/.gradle
+
+# Ignora archivos del sistema Mac
+.DS_store
