@@ -1,13 +1,11 @@
 *.class
 
 #Maven temporary files
-web/target/
-negocio/target/
-persistencia/target/
+/**/target/
 
 #IntelliJ files
-**/*.iml
-**/.idea
+*.iml
+/.idea
 
 # Ignora archivos del sistema Mac
 .DS_store
