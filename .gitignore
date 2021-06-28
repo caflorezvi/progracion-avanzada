@@ -1,21 +1,24 @@
-### Java ###
 *.class
 
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
 # Package Files #
+*.jar
 *.war
 *.ear
 
-### Gradle ###
-# Exclude Folder List #
-build/
+#Gradle temporary files
+**/target/
 
-# PDT-specific
-.buildpath
+#Eclipse files
+**/.project
+**/.classpath
+**/.settings/
+blog/bin/
+**/.tern-project
 
-### IntelliJ ###
-*.iml
-*.ipr
-*.iws
-.idea/
-
-/bin
+#IntelliJ files
+**/*.iml
+**/.idea
+**/.gradle
