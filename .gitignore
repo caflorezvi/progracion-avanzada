@@ -9,7 +9,7 @@
 *.ear
 
 #Gradle temporary files
-**/target/
+web/target/
 
 #Eclipse files
 **/.project
