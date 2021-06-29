@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -22,17 +23,21 @@ public class Horario implements Serializable {
 
     @Temporal(TemporalType.TIME)
     @Column(nullable = false)
+    @NotBlank
     private Date horaInicio;
 
     @Temporal(TemporalType.TIME)
     @Column(nullable = false)
+    @NotBlank
     private Date horaFin;
 
     @Column(nullable = false)
+    @NotBlank
     private String diaSemana;
 
     @ManyToOne
     @JoinColumn(nullable = false)
+    @NotBlank
     private Lugar lugar;
 
     public Horario(Date horaInicio, Date horaFin, String diaSemana) {

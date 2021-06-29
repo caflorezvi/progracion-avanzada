@@ -3,6 +3,8 @@ package co.edu.uniquindio.proyecto.entidades;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -21,10 +23,13 @@ public class Lugar implements Serializable {
     private Integer id;
 
     @Column(nullable = false, length = 200)
+    @NotBlank
+    @Size(max = 200)
     private String nombre;
 
     @Lob
     @Column(nullable = false)
+    @NotBlank
     private String descripcion;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -32,9 +37,11 @@ public class Lugar implements Serializable {
     private Date fechaCreacion;
 
     @Column(nullable = false)
+    @NotBlank
     private Float latitud;
 
     @Column(nullable = false)
+    @NotBlank
     private Float longitud;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -60,14 +67,17 @@ public class Lugar implements Serializable {
 
     @ManyToOne
     @JoinColumn(nullable = false)
+    @NotBlank
     private TipoLugar tipo;
 
     @ManyToOne
     @JoinColumn(nullable = false)
+    @NotBlank
     private Usuario usuarioCreador;
 
     @ManyToOne
     @JoinColumn(nullable = false)
+    @NotBlank
     private Ciudad ciudad;
 
     @OneToMany(mappedBy = "lugar")

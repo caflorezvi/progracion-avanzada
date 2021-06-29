@@ -15,23 +15,29 @@
 </h:head>
 <h:body>
   <h:form>
-    <h:panelGrid columns="2" cellpadding="5">
+    <h:panelGrid columns="3" cellpadding="5">
 
       <p:outputLabel for="nombre_usuario" value="Nombre: " />
-      <p:inputText id="nombre_usuario" value="#{usuarioBean.usuario.nombre}" />
+      <p:inputText id="nombre_usuario" value="#{usuarioBean.usuario.nombre}" required="true" />
+      <p:message for="nombre_usuario" />
 
       <p:outputLabel for="nickname_usuario" value="Nickname: " />
-      <p:inputText id="nickname_usuario" value="#{usuarioBean.usuario.nickname}" />
+      <p:inputText id="nickname_usuario" value="#{usuarioBean.usuario.nickname}" required="true" >
+        <f:validateLength maximum="100" />
+      </p:inputText>
+      <p:message for="nickname_usuario" />
 
       <p:outputLabel for="email_usuario" value="Email: " />
-      <p:inputText id="email_usuario" value="#{usuarioBean.usuario.email}" />
+      <p:inputText id="email_usuario" value="#{usuarioBean.usuario.email}" required="true"  />
+      <p:message for="email_usuario" />
 
       <p:outputLabel for="password_usuario" value="Contraseña: " />
-      <p:inputText id="password_usuario" value="#{usuarioBean.usuario.password}" />
+      <p:password id="password_usuario" value="#{usuarioBean.usuario.password}" required="true" requiredMessage="La contraseña es obligatoria" />
+      <p:message for="password_usuario" />
 
     </h:panelGrid>
     <p:commandButton value="Registrar usuario" action="#{usuarioBean.registrarUsuario}" update="@form" />
-    <p:growl showDetail="true" />
+    <p:growl for="mensaje-p" showDetail="true" />
   </h:form>
 </h:body>
 </html>

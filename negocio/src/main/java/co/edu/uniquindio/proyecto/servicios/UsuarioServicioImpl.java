@@ -31,10 +31,6 @@ public class UsuarioServicioImpl implements UsuarioServicio{
             throw new Exception("El nickname ya existe");
         }
 
-        if(u.getNickname().length()>100){
-            throw new Exception("El nickname solo puede tener 100 caracteres");
-        }
-
         if(!estaDisponible(u.getEmail())){
             throw new Exception("El email ya existe");
         }
