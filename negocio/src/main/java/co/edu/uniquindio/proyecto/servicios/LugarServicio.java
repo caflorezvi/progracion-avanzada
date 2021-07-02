@@ -1,5 +1,7 @@
 package co.edu.uniquindio.proyecto.servicios;
 
+import co.edu.uniquindio.proyecto.entidades.Comentario;
+import co.edu.uniquindio.proyecto.entidades.Horario;
 import co.edu.uniquindio.proyecto.entidades.Lugar;
 import co.edu.uniquindio.proyecto.entidades.TipoLugar;
 
@@ -17,11 +19,19 @@ public interface LugarServicio {
 
     List<Lugar> buscarLugares(String nombre);
 
-    Lugar obtenerLugat(Integer id) throws Exception;
+    Lugar obtenerLugar(Integer id) throws Exception;
 
     TipoLugar crearTipoLugar(TipoLugar tipoLugar) throws Exception;
 
     TipoLugar obtenerTipoLugar(Integer id) throws Exception;
+
+    List<TipoLugar> listarTiposLugares();
+
+    List<Comentario> listarComentarios(Integer idLugar);
+
+    List<Horario> listarHorarios(Integer idLugar);
+
+    void crearComentario(Comentario comentario) throws Exception;
 
 
 }

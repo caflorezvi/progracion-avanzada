@@ -28,8 +28,7 @@ public class TipoLugar implements Serializable {
     @ToString.Exclude
     private List<Lugar> lugares;
 
-    public TipoLugar(Integer id, String nombre) {
-        this.id = id;
+    public TipoLugar(String nombre) {
         this.nombre = nombre;
     }
 }

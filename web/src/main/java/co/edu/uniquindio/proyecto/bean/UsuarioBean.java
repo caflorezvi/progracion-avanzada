@@ -1,6 +1,8 @@
 package co.edu.uniquindio.proyecto.bean;
 
+import co.edu.uniquindio.proyecto.entidades.Ciudad;
 import co.edu.uniquindio.proyecto.entidades.Usuario;
+import co.edu.uniquindio.proyecto.servicios.CiudadServicio;
 import co.edu.uniquindio.proyecto.servicios.UsuarioServicio;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,6 +13,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
+import java.util.List;
 
 @Component
 @RequestScope
@@ -19,12 +22,22 @@ public class UsuarioBean implements Serializable {
     @Autowired
     private UsuarioServicio usuarioServicio;
 
+    @Autowired
+    private CiudadServicio ciudadServicio;
+
     @Getter @Setter
     private Usuario usuario;
+
+    @Getter @Setter
+    private Ciudad ciudad;
+
+    @Getter @Setter
+    private List<Ciudad> ciudades;
 
     @PostConstruct
     public void inicializar(){
         this.usuario = new Usuario();
+        this.ciudades = ciudadServicio.listarCiudades();
     }
 
     public void registrarUsuario(){

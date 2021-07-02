@@ -37,11 +37,9 @@ public class Lugar implements Serializable {
     private Date fechaCreacion;
 
     @Column(nullable = false)
-    @NotBlank
     private Float latitud;
 
     @Column(nullable = false)
-    @NotBlank
     private Float longitud;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -67,17 +65,14 @@ public class Lugar implements Serializable {
 
     @ManyToOne
     @JoinColumn(nullable = false)
-    @NotBlank
     private TipoLugar tipo;
 
     @ManyToOne
     @JoinColumn(nullable = false)
-    @NotBlank
     private Usuario usuarioCreador;
 
     @ManyToOne
     @JoinColumn(nullable = false)
-    @NotBlank
     private Ciudad ciudad;
 
     @OneToMany(mappedBy = "lugar")
@@ -93,14 +88,12 @@ public class Lugar implements Serializable {
     private List<Usuario> usuariosFavoritos;
 
     @Builder
-    public Lugar(String nombre, String descripcion, Date fechaCreacion, Float latitud, Float longitud, List<String> imagenes, List<String> telefonos, TipoLugar tipo, Usuario usuarioCreador, Ciudad ciudad, List<Horario> horarios) {
+    public Lugar(String nombre, String descripcion, Float latitud, Float longitud, List<String> imagenes, TipoLugar tipo, Usuario usuarioCreador, Ciudad ciudad, List<Horario> horarios) {
         this.nombre = nombre;
         this.descripcion = descripcion;
-        this.fechaCreacion = fechaCreacion;
         this.latitud = latitud;
         this.longitud = longitud;
         this.imagenes = imagenes;
-        this.telefonos = telefonos;
         this.tipo = tipo;
         this.usuarioCreador = usuarioCreador;
         this.ciudad = ciudad;

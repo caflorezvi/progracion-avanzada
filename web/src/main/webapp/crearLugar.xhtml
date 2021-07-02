@@ -11,27 +11,56 @@
 <h:head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <h:outputStylesheet library="css" name="bootstrap.min.css" />
+  <h:outputStylesheet library="css" name="mapbox-gl.css" />
+  <h:outputStylesheet library="css" name="style.css" />
+  <h:outputScript library="js" name="bootstrap.bundle.min.js" />
+  <h:outputScript library="js" name="mapbox-gl.js" />
+  <h:outputScript library="js" name="script-lugar.js" />
   <title>Crear nuevo lugar</title>
 </h:head>
 <h:body>
-  <h:form>
-    <h:panelGrid columns="2" cellpadding="5" >
+  <div class="container" >
+    <p:panel header="Crear nuevo lugar">
+      <div class="row">
+        <div class="col">
+          <div id="mapa" style="width: 100%; height: 400px" ></div>
+        </div>
+        <div class="col">
+          <h:form id="crear-lugar" >
+            <h:inputHidden id="lat-lugar" value="#{lugarBean.lugar.latitud}" />
+            <h:inputHidden id="lng-lugar" value="#{lugarBean.lugar.longitud}" />
+            <h:panelGrid columns="3" cellpadding="5" >
 
-      <p:outputLabel for="nombre_lugar" value="Nombre:" />
-      <p:inputText id="nombre_lugar" value="#{lugarBean.lugar.nombre}" />
+              <p:outputLabel for="nombre_lugar" value="Nombre:" />
+              <p:inputText id="nombre_lugar" value="#{lugarBean.lugar.nombre}" required="true"  />
+              <p:message for="nombre_lugar" />
 
-      <p:outputLabel for="latitud_lugar" value="Latitud:" />
-      <p:inputText id="latitud_lugar" value="#{lugarBean.lugar.latitud}" />
+              <p:outputLabel for="ciudad_lugar" value="Ciudad: " />
+              <p:selectOneMenu id="ciudad_lugar" value="#{lugarBean.lugar.ciudad}" converter="#{ciudadConverter}" required="true" requiredMessage="La ciudad es obligatoria" >
+                <f:selectItem itemLabel="Seleccione la ciudad" noSelectionOption="true"  />
+                <f:selectItems var="ciudad" itemLabel="#{ciudad.nombre}" value="#{lugarBean.ciudades}" />
+              </p:selectOneMenu>
+              <p:message for="ciudad_lugar" />
 
-      <p:outputLabel for="longitud_lugar" value="Longitud:" />
-      <p:inputText id="longitud_lugar" value="#{lugarBean.lugar.longitud}" />
+              <p:outputLabel for="tipo_lugar" value="Tipo lugar: " />
+              <p:selectOneMenu id="tipo_lugar" value="#{lugarBean.lugar.tipo}" converter="#{tipoLugarConverter}" required="true" requiredMessage="El tipo del lugar es obligatoria" >
+                <f:selectItem itemLabel="Seleccione el tipo del lugar:" noSelectionOption="true"  />
+                <f:selectItems var="tipo" itemLabel="#{tipo.nombre}" value="#{lugarBean.tipoLugares}" />
+              </p:selectOneMenu>
+              <p:message for="tipo_lugar" />
 
-      <p:outputLabel for="descripcion_lugar" value="Descripción:" />
-      <p:inputTextarea id="descripcion_lugar" value="#{lugarBean.lugar.descripcion}" />
+              <p:outputLabel for="descripcion_lugar" value="Descripción:" />
+              <p:inputTextarea id="descripcion_lugar" value="#{lugarBean.lugar.descripcion}" />
+              <p:message for="descripcion_lugar" />
 
-    </h:panelGrid>
-    <p:commandButton action="#{lugarBean.crearLugar}" value="Crear nuevo lugar" update="@form" />
-    <p:growl showDetail="true" />
-  </h:form>
+            </h:panelGrid>
+            <p:commandButton action="#{lugarBean.crearLugar}" value="Crear nuevo lugar" update="@form" styleClass="mt-4" />
+            <p:growl for="mensaje_bean" showDetail="true" />
+          </h:form>
+        </div>
+      </div>
+    </p:panel>
+  </div>
 </h:body>
 </html>

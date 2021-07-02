@@ -27,7 +27,6 @@ public class Comentario implements Serializable {
     private String comentario;
 
     @Column(nullable = false)
-    @NotBlank
     @Positive
     private Integer calificacion;
 
@@ -36,23 +35,20 @@ public class Comentario implements Serializable {
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
-    @NotBlank
     private Date fechaCreacion;
 
     @ManyToOne
     @JoinColumn(nullable = false)
-    @NotBlank
     private Lugar lugar;
 
     @ManyToOne
     @JoinColumn(nullable = false)
-    @NotBlank
     private Usuario usuario;
 
-    public Comentario(String comentario, Integer calificacion, Date fechaCreacion, Lugar lugar, Usuario usuario) {
+    @Builder
+    public Comentario(String comentario, Integer calificacion, Lugar lugar, Usuario usuario) {
         this.comentario = comentario;
         this.calificacion = calificacion;
-        this.fechaCreacion = fechaCreacion;
         this.lugar = lugar;
         this.usuario = usuario;
     }

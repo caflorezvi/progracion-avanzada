@@ -1,5 +1,7 @@
 package co.edu.uniquindio.proyecto.repositorios;
 
+import co.edu.uniquindio.proyecto.entidades.Comentario;
+import co.edu.uniquindio.proyecto.entidades.Horario;
 import co.edu.uniquindio.proyecto.entidades.Lugar;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -10,11 +12,16 @@ import java.util.List;
 @Repository
 public interface LugarRepo extends JpaRepository<Lugar, Integer> {
 
-    @Query("select l from Lugar l join l.horarios h where l.estado = true and h.diaSemana = :diaSemana and :horaActual between h.horaInicio and h.horaFin ")
+    @Query("select l from Lugar l join l.horarios h where l.estado = true and h.diaSemana = :diaSemana and :horaActual between h.horaInicio and h.horaFin")
     List<Lugar> obtenerLugaresAbiertos(String diaSemana, Date horaActual);
 
-    //lugares que estén aprobados por algún moderador
     @Query("select l from Lugar l where l.nombre like concat('%', :nombre, '%') ")
     List<Lugar> buscarLugares(String nombre);
+
+    @Query("select c from Comentario c where c.lugar.id = :idLugar")
+    List<Comentario> listarComentarios(Integer idLugar);
+
+    @Query("select h from Horario h where h.lugar.id = :idLugar")
+    List<Horario> listarHorarios(Integer idLugar);
 
 }
