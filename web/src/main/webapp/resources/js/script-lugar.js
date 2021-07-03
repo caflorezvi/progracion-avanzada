@@ -1,13 +1,23 @@
 window.onload = function (){
 
+    if( "geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(position => {
+            cargarMapa(position.coords.latitude, position.coords.longitude, 14)
+        })
+    }else{
+        cargarMapa(4.52892, -75.6775, 4.5)
+    }
+}
+
+function cargarMapa(lat, lng, zoom){
     let enable = true;
     mapboxgl.accessToken = 'pk.eyJ1IjoiY2FmbG9yZXp2aSIsImEiOiJja2EwZWF0YnEwMm82M2ZtazBvZWV3dHM1In0.YpYaeS5Y1RSvwBgVFvDMyA';
 
     var map = new mapboxgl.Map({
         container: 'mapa',
         style: 'mapbox://styles/mapbox/streets-v11',
-        center: [-72.309, 4.473],
-        zoom: 4.5
+        center: [lng, lat],
+        zoom: zoom
     });
 
     map.addControl(new mapboxgl.GeolocateControl({
@@ -18,17 +28,6 @@ window.onload = function (){
     }));
 
     map.addControl(new mapboxgl.NavigationControl());
-
-    map.on("load", function (e){
-        if( "geolocation" in navigator){
-            navigator.geolocation.getCurrentPosition( position => {
-                map.flyTo({
-                    center: [position.coords.longitude, position.coords.latitude],
-                    zoom: 14
-                })
-            } )
-        }
-    })
 
     map.on("click", function (e){
         if(enable) {
@@ -45,7 +44,6 @@ window.onload = function (){
             })
         }
     });
-
 }
 
 function setLtnLng(lat, lng){

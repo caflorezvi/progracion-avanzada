@@ -13,14 +13,71 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <h:outputStylesheet library="css" name="bootstrap.min.css" />
   <h:outputStylesheet library="css" name="style.css" />
+  <h:outputStylesheet library="css" name="mapbox-gl.css" />
   <h:outputScript library="js" name="bootstrap.bundle.min.js" />
+  <h:outputScript library="js" name="mapbox-gl.js" />
+  <h:outputScript library="js" name="script-detalle.js" />
   <title>Unilocal | Detalle lugar</title>
 </h:head>
 <h:body>
-  <p>#{detalleLugarBean.lugar}</p>
+  <div class="container" >
+    <div class="row" >
+      <div class="col-7">
+        <div class="box box-stretched">
+          <p:galleria value="#{detalleVehiculo.vehiculo.fotos}" var="imagen" panelHeight="425">
+            <p:graphicImage url="/../unimotor/#{imagen}" alt="Image Description for #{imagen}" title="#{imagen}" />
+          </p:galleria>
+        </div>
+      </div>
 
-  <p>#{detalleLugarBean.comentarios}</p>
+      <div class="col-5">
+        <div class="p-grid">
+          <div class="box">
+            <h1>#{detalleLugarBean.lugar.nombre}</h1>
+            <h:form rendered="#{seguridadBean.autenticado}">
+              <p:toggleSwitch value="#{detalleVehiculo.favorito}">
+                <p:ajax listener="#{detalleVehiculo.marcarComoFavorito}" />
+              </p:toggleSwitch>
+            </h:form>
+          </div>
+          <div class="box">
+            <h3>Ciudad: #{detalleLugarBean.lugar.ciudad.nombre}</h3>
+            <h:inputHidden id="pos-lat-d" value="#{detalleLugarBean.lugar.latitud}" />
+            <h:inputHidden id="pos-lng-d" value="#{detalleLugarBean.lugar.longitud}" />
+          </div>
 
-  <p>#{detalleLugarBean.horarios}</p>
+          <p:dataList emptyMessage="No hay horarios para este lugar" styleClass="lista-carac" value="#{detalleLugarBean.horarios}" var="horario">
+            <f:facet name="header">Horarios</f:facet>
+            <h:outputText value="#{horario.diaSemana}" />
+          </p:dataList>
+        </div>
+      </div>
+    </div>
+
+    <div id="mapa" style="width: 100%; height: 300px"></div>
+
+    <p:panel header="Descripción" styleClass="mt-3">
+      <p>#{detalleLugarBean.lugar.descripcion}</p>
+    </p:panel>
+
+    <p:panel header="Hacer una nueva pregunta" rendered="#{seguridadBean.autenticado}" styleClass="mt-3">
+      <h:form>
+        <h:panelGrid columns="2" cellpadding="3">
+          <p:inputTextarea value="#{detalleVehiculo.pregunta}" required="true" style="width:450px;height:300px" />
+          <p:commandButton value="Preguntar" action="#{detalleVehiculo.hacerPregunta}" update="@form, lista-c" />
+        </h:panelGrid>
+        <p:growl for="msj-pregunta" showDetail="true" />
+      </h:form>
+    </p:panel>
+
+    <p:panel header="Comentarios" styleClass="mt-3">
+      <p:dataList id="lista-c" value="#{detalleLugarBean.comentarios}" var="comentario" emptyMessage="No hay comentarios" type="definition">
+        <div>
+          <p>#{comentario.usuario.nombre}: #{comentario.comentario}</p>
+        </div>
+      </p:dataList>
+    </p:panel>
+  </div>
+
 </h:body>
 </html>

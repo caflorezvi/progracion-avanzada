@@ -2,11 +2,56 @@
 <!DOCTYPE html
         PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-    <title>Title</title>
-</head>
-<body>
-  <p>#{busquedaBean.lugares}</p>
-</body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xml:lang="en" lang="en">
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <h:outputStylesheet library="css" name="bootstrap.min.css" />
+    <h:outputStylesheet library="css" name="mapbox-gl.css" />
+    <h:outputStylesheet library="css" name="style.css" />
+    <h:outputScript library="js" name="bootstrap.bundle.min.js" />
+    <h:outputScript library="js" name="mapbox-gl.js" />
+    <title>Unilocal | Resultado de búsqueda</title>
+</h:head>
+<h:body>
+    <div class="container" >
+        <div>
+            <h:form id="form">
+                <p:dataView var="lugar" value="#{busquedaBean.lugares}" rows="12" paginator="true" gridIcon="pi pi-th-large" listIcon="pi pi-bars" >
+                    <p:dataViewGridItem>
+                        <div class="card" style="width: 18rem;">
+                            <img src="..." class="card-img-top" alt="..." />
+                            <div class="card-body">
+                                <h5 class="card-title">#{lugar.nombre}</h5>
+                                <p class="card-text">#{lugar.descripcion}</p>
+                                <p:commandButton value="Ver detalle" action="#{inicioBean.irADetalle(lugar.id)}" styleClass="ui-button-raised" icon="pi pi-arrow-right" iconPos="right" />
+                            </div>
+                        </div>
+                    </p:dataViewGridItem>
+                    <p:dataViewListItem>
+                        <h:panelGrid columns="3" style="width:100%" columnClasses="logo,detail">
+                            <p:graphicImage styleClass="imagen-lugar" />
+                            <p:outputPanel>
+                                <h:panelGrid columns="2" cellpadding="5">
+                                    <h:outputText value="Nombre:" />
+                                    <h:outputText value="#{lugar.nombre}" style="font-weight: bold" />
+                                    <h:outputText value="Tipo:" />
+                                    <h:outputText value="#{lugar.tipo.nombre}" />
+                                    <h:outputText value="Descripción:" />
+                                    <h:outputText value="#{lugar.descripcion}" />
+                                </h:panelGrid>
+                            </p:outputPanel>
+                            <p:commandButton value="Ver detalle" action="#{inicioBean.irADetalle(lugar.id)}" styleClass="ui-button-raised" icon="pi pi-arrow-right" iconPos="right" />
+                        </h:panelGrid>
+                    </p:dataViewListItem>
+                </p:dataView>
+            </h:form>
+        </div>
+    </div>
+</h:body>
 </html>
