@@ -8,19 +8,18 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xml:lang="en" lang="en">
-<h:head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <h:outputStylesheet library="css" name="bootstrap.min.css" />
-    <h:outputStylesheet library="css" name="mapbox-gl.css" />
-    <h:outputStylesheet library="css" name="style.css" />
-    <h:outputScript library="js" name="bootstrap.bundle.min.js" />
-    <h:outputScript library="js" name="mapbox-gl.js" />
-    <title>Unilocal | Resultado de búsqueda</title>
-</h:head>
-<h:body>
-    <div class="container" >
-        <div>
+<ui:composition template="/WEB-INF/plantilla.xhtml" >
+    <ui:define name="head">
+        <h:outputStylesheet library="css" name="mapbox-gl.css" />
+        <h:outputScript library="js" name="mapbox-gl.js" />
+        <h:outputScript library="js" name="script-home.js" />
+    </ui:define>
+    <ui:define name="title">Unilocal | Resultado de la búsqueda</ui:define>
+    <ui:define name="content">
+        <div id="mapa" >
+            <div id='map' ></div>
+        </div>
+        <div class="container mt-4" >
             <h:form id="form">
                 <p:dataView var="lugar" value="#{busquedaBean.lugares}" rows="12" paginator="true" gridIcon="pi pi-th-large" listIcon="pi pi-bars" >
                     <p:dataViewGridItem>
@@ -52,6 +51,6 @@
                 </p:dataView>
             </h:form>
         </div>
-    </div>
-</h:body>
+    </ui:define>
+</ui:composition>
 </html>

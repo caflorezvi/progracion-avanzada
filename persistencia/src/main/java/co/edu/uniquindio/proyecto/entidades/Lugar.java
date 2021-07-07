@@ -29,7 +29,7 @@ public class Lugar implements Serializable {
 
     @Lob
     @Column(nullable = false)
-    @NotBlank
+    @NotBlank(message = "La descripción es obligatoria")
     private String descripcion;
 
     @Temporal(TemporalType.TIMESTAMP)

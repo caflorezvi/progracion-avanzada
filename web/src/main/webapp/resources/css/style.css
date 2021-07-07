@@ -87,6 +87,14 @@
     font-weight: normal;
 }
 
+.form-row td:nth-child(2){
+    width: 100%;
+}
+
+.form-row td:nth-child(2) > *{
+    width: 100%;
+}
+
 @media only screen and (max-width: 768px) {
     .input-search{
         width: 100%;

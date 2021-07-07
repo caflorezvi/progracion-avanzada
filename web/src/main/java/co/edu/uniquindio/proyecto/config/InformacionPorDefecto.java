@@ -28,7 +28,7 @@ public class InformacionPorDefecto implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-
+    /*
         if( !adminService.existenAdmins() ){
             Administrador ad1 = Administrador.builder().nombre("Admin 1").email("admin1@admin.com").nickname("admin1").password("123").build();
             adminService.registrarAdmin(ad1);
@@ -94,7 +94,7 @@ public class InformacionPorDefecto implements CommandLineRunner {
 
         }
 
-        /*Comentario c1 = Comentario.builder()
+        Comentario c1 = Comentario.builder()
                 .comentario("Este lugar es muy intersante")
                 .calificacion(4)
                 .lugar( lugarServicio.obtenerLugar(5) )
