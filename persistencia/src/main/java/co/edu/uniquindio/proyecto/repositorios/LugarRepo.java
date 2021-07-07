@@ -24,4 +24,7 @@ public interface LugarRepo extends JpaRepository<Lugar, Integer> {
     @Query("select h from Horario h where h.lugar.id = :idLugar")
     List<Horario> listarHorarios(Integer idLugar);
 
+    @Query("select avg(c.calificacion) from Comentario c where c.lugar.id = :idLugar")
+    Float obtenerCalificacionPromedio(Integer idLugar);
+
 }

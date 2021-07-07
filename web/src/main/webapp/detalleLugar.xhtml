@@ -18,7 +18,7 @@
   <ui:define name="content">
     <div class="container mt-4" >
       <div class="row" >
-        <div class="col-7">
+        <div class="col-lg-7 col-md-1">
           <div class="box box-stretched">
             <p:galleria value="#{detalleLugarBean.lugar.imagenes}" var="imagen" panelHeight="425">
               <p:graphicImage url="/uploads/#{imagen}" alt="Image Description for #{imagen}" title="#{imagen}" />
@@ -26,14 +26,13 @@
           </div>
         </div>
 
-        <div class="col-5">
+        <div class="col-lg-5 col-md-1">
           <div class="p-grid">
             <div class="box">
-              <h1>#{detalleLugarBean.lugar.nombre}</h1>
-              <h:form rendered="#{seguridadBean.autenticado}">
-                <p:toggleSwitch value="#{detalleVehiculo.favorito}">
-                  <p:ajax listener="#{detalleVehiculo.marcarComoFavorito}" />
-                </p:toggleSwitch>
+              <p:rating value="#{detalleLugarBean.calificacionPromedio}" readonly="true"/>
+              <h1 class="mt-4">#{detalleLugarBean.lugar.nombre}</h1>
+              <h:form id="favorito-lugar">
+                <p:commandButton icon="#{detalleLugarBean.icono}" alt="Marcar como favorito" title="Marcar como favorito" styleClass="rounded-button ui-button-warning ui-button-flat" action="#{detalleLugarBean.marcarFavorito}" update="@form"/>
               </h:form>
             </div>
             <div class="box">
@@ -44,7 +43,7 @@
 
             <p:dataList emptyMessage="No hay horarios para este lugar" styleClass="lista-carac" value="#{detalleLugarBean.horarios}" var="horario">
               <f:facet name="header">Horarios</f:facet>
-              <h:outputText value="#{horario.diaSemana}" />
+              <p>#{horario.diaSemana}, #{horario.horaI} - #{horario.horaF}</p>
             </p:dataList>
           </div>
         </div>
@@ -56,22 +55,41 @@
         <p>#{detalleLugarBean.lugar.descripcion}</p>
       </p:panel>
 
-      <p:panel header="Hacer una nueva pregunta" styleClass="mt-3">
-        <h:form>
+      <p:panel header="Hacer un comentario" styleClass="mt-3">
+        <h:form id="crear-comentario">
           <h:panelGrid columns="2" cellpadding="3">
-            <p:inputTextarea value="" required="true" style="width:450px;height:300px" />
-            <p:commandButton value="Preguntar" update="@form, lista-c" />
+            <p:inputTextarea value="#{detalleLugarBean.nuevoComentario.comentario}" required="true" styleClass="comentario-usuario" />
+            <p:rating value="#{detalleLugarBean.nuevoComentario.calificacion}" required="true"/>
           </h:panelGrid>
+          <p:commandButton value="Comentar" icon="pi pi-comment" iconPos="left" update="@form, lista-c" styleClass="mt-4" action="#{detalleLugarBean.crearComentario}" />
           <p:growl for="msj-pregunta" showDetail="true" />
         </h:form>
       </p:panel>
 
       <p:panel header="Comentarios" styleClass="mt-3">
-        <p:dataList id="lista-c" value="#{detalleLugarBean.comentarios}" var="comentario" emptyMessage="No hay comentarios" type="definition">
-          <div>
-            <p>#{comentario.usuario.nombre}: #{comentario.comentario}</p>
-          </div>
-        </p:dataList>
+        <div class="blog-comment">
+          <ul class="comments" >
+            <p:dataList id="lista-c" value="#{detalleLugarBean.comentarios}" var="comentario" emptyMessage="No hay comentarios" type="definition">
+              <li class="clearfix">
+                <img src="/uploads/avatar.png" class="avatar" alt="" />
+                <div class="post-comments">
+                  <p class="meta">#{comentario.fechaComentario} <a href="#">#{comentario.usuario.nombre}</a> dijo: <i class="pull-right" style="visibility: hidden"><a href="#"><small>Reply</small></a></i></p>
+                  <p>#{comentario.comentario}</p>
+                </div>
+
+                <ul class="comments" style="display: none">
+                  <li class="clearfix">
+                    <img src="/uploads/avatar.png" class="avatar" alt="" />
+                    <div class="post-comments">
+                      <p class="meta">#{comentario.fechaComentario} <a href="#">#{comentario.lugar.usuarioCreador.nombre}</a> dijo : <i class="pull-right"><a href="#"><small>Reply</small></a></i></p>
+                      <p>#{comentario.respuesta}</p>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            </p:dataList>
+          </ul>
+        </div>
       </p:panel>
     </div>
   </ui:define>

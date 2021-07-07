@@ -20,7 +20,7 @@
       <p:panel header="Crear nuevo lugar">
         <div class="row">
           <div class="col">
-            <div id="mapa" style="width: 100%; height: 400px" ></div>
+            <div id="mapa" style="width: 100%; height: 500px" ></div>
           </div>
           <div class="col">
             <h:form id="crear-lugar" >
@@ -52,15 +52,48 @@
                 <p:outputLabel for="descripcion_lugar" value="Descripción:" />
                 <p:inputTextarea id="descripcion_lugar" value="#{lugarBean.lugar.descripcion}" />
 
+                <p:outputLabel value="Horarios: " />
+                <div>
+                  <p:commandButton value="Agregar horario" icon="pi pi-calendar" onclick="PF('horario-form').show()" />
+                  <p:dataList id="lista-horarios" value="#{lugarBean.horarios}" var="horario" emptyMessage="No hay horarios" >
+                    <p>#{horario.diaSemana}, #{horario.horaI} - #{horario.horaF}</p>
+                  </p:dataList>
+                </div>
+
               </h:panelGrid>
               <p:messages showSummary="true" />
-              <p:commandButton action="#{lugarBean.crearLugar}" value="Crear nuevo lugar" update="@form" styleClass="mt-4" />
+              <p:commandButton action="#{lugarBean.crearLugar}" value="Crear nuevo lugar" iconPos="left" icon="pi pi-plus" update="@form" styleClass="mt-4 ui-button-raised ui-button-success" />
               <p:growl for="mensaje_bean" showDetail="true" />
             </h:form>
           </div>
         </div>
       </p:panel>
     </div>
+    <p:dialog header="Nuevo horario" widgetVar="horario-form" showEffect="fade" modal="true">
+      <h:form id="crear-horario">
+        <h:panelGrid columns="2" cellpadding="5" >
+          <p:outputLabel for="dia-horario" value="Día de la semana:" />
+          <p:selectOneMenu id="dia-horario" value="#{lugarBean.horario.diaSemana}" required="true" style="width: 100%" >
+            <f:selectItem itemLabel="Seleccione el día" noSelectionOption="true" />
+            <f:selectItem itemLabel="Domingo" itemValue="domingo" />
+            <f:selectItem itemLabel="Lunes" itemValue="lunes" />
+            <f:selectItem itemLabel="Martes" itemValue="martes" />
+            <f:selectItem itemLabel="Miércoles" itemValue="miercoles" />
+            <f:selectItem itemLabel="Jueves" itemValue="jueves" />
+            <f:selectItem itemLabel="Viernes" itemValue="viernes" />
+            <f:selectItem itemLabel="Sábado" itemValue="sabado" />
+          </p:selectOneMenu>
+
+          <p:outputLabel for="hora-inicio-horario" value="Hora inicio:" />
+          <p:datePicker id="hora-inicio-horario" value="#{lugarBean.horario.horaInicio}" timeOnly="true" pattern="HH:mm" required="true"/>
+
+          <p:outputLabel for="hora-fin-horario" value="Hora inicio:" />
+          <p:datePicker id="hora-fin-horario" value="#{lugarBean.horario.horaFin}" timeOnly="true" pattern="HH:mm" required="true"/>
+
+        </h:panelGrid>
+        <p:commandButton action="#{lugarBean.agregarHorario}" value="Agregar horario" icon="pi pi-calendar-plus" update="@form,:crear-lugar:lista-horarios" styleClass="mt-4" />
+      </h:form>
+    </p:dialog>
   </ui:define>
 </ui:composition>
 </html>

@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
@@ -51,6 +52,10 @@ public class Comentario implements Serializable {
         this.calificacion = calificacion;
         this.lugar = lugar;
         this.usuario = usuario;
+    }
+
+    public String getFechaComentario(){
+        return new SimpleDateFormat("MMM dd, YYYY").format(fechaCreacion);
     }
 
 }

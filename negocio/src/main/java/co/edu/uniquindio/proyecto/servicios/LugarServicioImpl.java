@@ -1,12 +1,7 @@
 package co.edu.uniquindio.proyecto.servicios;
 
-import co.edu.uniquindio.proyecto.entidades.Comentario;
-import co.edu.uniquindio.proyecto.entidades.Horario;
-import co.edu.uniquindio.proyecto.entidades.Lugar;
-import co.edu.uniquindio.proyecto.entidades.TipoLugar;
-import co.edu.uniquindio.proyecto.repositorios.ComentarioRepo;
-import co.edu.uniquindio.proyecto.repositorios.LugarRepo;
-import co.edu.uniquindio.proyecto.repositorios.TipoLugarRepo;
+import co.edu.uniquindio.proyecto.entidades.*;
+import co.edu.uniquindio.proyecto.repositorios.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,11 +16,15 @@ public class LugarServicioImpl implements LugarServicio{
     private final TipoLugarRepo tipoLugarRepo;
     private final LugarRepo lugarRepo;
     private final ComentarioRepo comentarioRepo;
+    private final HorarioRepo horarioRepo;
+    private final UsuarioRepo usuarioRepo;
 
-    public LugarServicioImpl(LugarRepo lugarRepo, TipoLugarRepo tipoLugarRepo, ComentarioRepo comentarioRepo) {
+    public LugarServicioImpl(LugarRepo lugarRepo, TipoLugarRepo tipoLugarRepo, ComentarioRepo comentarioRepo, HorarioRepo horarioRepo, UsuarioRepo usuarioRepo) {
         this.lugarRepo = lugarRepo;
         this.tipoLugarRepo = tipoLugarRepo;
         this.comentarioRepo = comentarioRepo;
+        this.horarioRepo = horarioRepo;
+        this.usuarioRepo = usuarioRepo;
     }
 
     @Override
@@ -109,5 +108,33 @@ public class LugarServicioImpl implements LugarServicio{
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }
+    }
+
+    @Override
+    public void crearHorario(Horario horario) throws Exception {
+        try {
+            horarioRepo.save(horario);
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
+
+    @Override
+    public Float obtenerCalificacionPromedio(Integer idLugar) throws Exception {
+        Optional<Lugar> objeto = lugarRepo.findById(idLugar);
+        if( objeto.isEmpty() ){
+            throw new Exception("El id no es válido");
+        }
+        return lugarRepo.obtenerCalificacionPromedio(idLugar);
+    }
+
+    @Override
+    public void marcarFavorito(Lugar lugar, Usuario usuario) {
+        if( usuario.getLugaresFavoritos().contains(lugar) ){
+            usuario.getLugaresFavoritos().remove(lugar);
+        }else{
+            usuario.getLugaresFavoritos().add(lugar);
+        }
+        usuarioRepo.save(usuario);
     }
 }

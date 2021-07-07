@@ -7,6 +7,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
@@ -23,12 +24,10 @@ public class Horario implements Serializable {
 
     @Temporal(TemporalType.TIME)
     @Column(nullable = false)
-    @NotBlank
     private Date horaInicio;
 
     @Temporal(TemporalType.TIME)
     @Column(nullable = false)
-    @NotBlank
     private Date horaFin;
 
     @Column(nullable = false)
@@ -37,7 +36,6 @@ public class Horario implements Serializable {
 
     @ManyToOne
     @JoinColumn(nullable = false)
-    @NotBlank
     private Lugar lugar;
 
     public Horario(Date horaInicio, Date horaFin, String diaSemana) {
@@ -46,4 +44,11 @@ public class Horario implements Serializable {
         this.diaSemana = diaSemana;
     }
 
+    public String getHoraI(){
+        return new SimpleDateFormat("HH:mm").format(horaInicio);
+    }
+
+    public String getHoraF(){
+        return new SimpleDateFormat("HH:mm").format(horaFin);
+    }
 }

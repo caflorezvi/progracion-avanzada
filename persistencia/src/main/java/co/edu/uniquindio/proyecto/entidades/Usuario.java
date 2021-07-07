@@ -3,6 +3,7 @@ package co.edu.uniquindio.proyecto.entidades;
 import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,7 +25,7 @@ public class Usuario extends Persona implements Serializable {
             name = "favorito",
             joinColumns = @JoinColumn(name = "id_usuario"),
             inverseJoinColumns = @JoinColumn(name = "id_lugar"))
-    private List<Lugar> lugaresFavoritos;
+    private List<Lugar> lugaresFavoritos = new ArrayList<>();
 
     @OneToMany(mappedBy = "usuario")
     private List<Comentario> comentarios;

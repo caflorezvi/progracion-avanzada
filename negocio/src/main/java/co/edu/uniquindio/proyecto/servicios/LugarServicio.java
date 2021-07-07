@@ -1,9 +1,6 @@
 package co.edu.uniquindio.proyecto.servicios;
 
-import co.edu.uniquindio.proyecto.entidades.Comentario;
-import co.edu.uniquindio.proyecto.entidades.Horario;
-import co.edu.uniquindio.proyecto.entidades.Lugar;
-import co.edu.uniquindio.proyecto.entidades.TipoLugar;
+import co.edu.uniquindio.proyecto.entidades.*;
 
 import java.util.List;
 
@@ -33,5 +30,9 @@ public interface LugarServicio {
 
     void crearComentario(Comentario comentario) throws Exception;
 
+    void crearHorario(Horario horario) throws Exception;
 
+    Float obtenerCalificacionPromedio(Integer idLugar) throws Exception;
+
+    void marcarFavorito(Lugar lugar, Usuario usuario);
 }

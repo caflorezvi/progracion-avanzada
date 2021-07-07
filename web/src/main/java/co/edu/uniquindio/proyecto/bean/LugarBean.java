@@ -1,6 +1,7 @@
 package co.edu.uniquindio.proyecto.bean;
 
 import co.edu.uniquindio.proyecto.entidades.Ciudad;
+import co.edu.uniquindio.proyecto.entidades.Horario;
 import co.edu.uniquindio.proyecto.entidades.Lugar;
 import co.edu.uniquindio.proyecto.entidades.TipoLugar;
 import co.edu.uniquindio.proyecto.servicios.CiudadServicio;
@@ -45,6 +46,12 @@ public class LugarBean implements Serializable {
     @Getter @Setter
     private List<TipoLugar> tipoLugares;
 
+    @Getter @Setter
+    private List<Horario> horarios;
+
+    @Getter @Setter
+    private Horario horario;
+
     public LugarBean(LugarServicio lugarServicio, CiudadServicio ciudadServicio, UsuarioServicio usuarioServicio) {
         this.lugarServicio = lugarServicio;
         this.ciudadServicio = ciudadServicio;
@@ -55,16 +62,23 @@ public class LugarBean implements Serializable {
     public void inicializar(){
         this.lugar = new Lugar();
         this.imagenes = new ArrayList<>();
+        this.horarios = new ArrayList<>();
+        this.horario = new Horario();
         this.ciudades = ciudadServicio.listarCiudades();
         this.tipoLugares = lugarServicio.listarTiposLugares();
     }
 
     public String crearLugar(){
         try{
-            if( lugar.getLatitud()!=null && lugar.getLongitud()!=null && !imagenes.isEmpty()) {
+            if( lugar.getLatitud()!=null && lugar.getLongitud()!=null && !imagenes.isEmpty() && !horarios.isEmpty()) {
                 lugar.setUsuarioCreador(usuarioServicio.obtenerUsuario(9));
                 lugar.setImagenes(imagenes);
-                lugarServicio.crearLugar(lugar);
+                Lugar creado = lugarServicio.crearLugar(lugar);
+
+                for (Horario h : horarios) {
+                    h.setLugar(creado);
+                    lugarServicio.crearHorario(h);
+                }
 
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,"Alerta", "El lugar se creó correctamente");
                 FacesContext.getCurrentInstance().addMessage("mensaje_bean", msg);
@@ -103,5 +117,9 @@ public class LugarBean implements Serializable {
         return null;
     }
 
+    public void agregarHorario(){
+        horarios.add(horario);
+        horario = new Horario();
+    }
 
 }
