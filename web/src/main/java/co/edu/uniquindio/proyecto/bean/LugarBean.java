@@ -61,15 +61,15 @@ public class LugarBean implements Serializable {
 
     public String crearLugar(){
         try{
-            if( lugar.getLatitud()!=null && lugar.getLongitud()!=null ) {
+            if( lugar.getLatitud()!=null && lugar.getLongitud()!=null && !imagenes.isEmpty()) {
                 lugar.setUsuarioCreador(usuarioServicio.obtenerUsuario(9));
+                lugar.setImagenes(imagenes);
                 lugarServicio.crearLugar(lugar);
 
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,"Alerta", "El lugar se creó correctamente");
                 FacesContext.getCurrentInstance().addMessage("mensaje_bean", msg);
-
             }else{
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Alerta", "Es necesario ubicar el lugar dentro del mapa");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Alerta", "Es necesario ubicar el lugar dentro del mapa y subir al menos una imagen");
                 FacesContext.getCurrentInstance().addMessage("mensaje_bean", msg);
             }
         }catch (Exception e){

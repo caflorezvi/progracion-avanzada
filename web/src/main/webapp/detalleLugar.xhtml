@@ -20,8 +20,8 @@
       <div class="row" >
         <div class="col-7">
           <div class="box box-stretched">
-            <p:galleria value="#{detalleVehiculo.vehiculo.fotos}" var="imagen" panelHeight="425">
-              <p:graphicImage url="/../unimotor/#{imagen}" alt="Image Description for #{imagen}" title="#{imagen}" />
+            <p:galleria value="#{detalleLugarBean.lugar.imagenes}" var="imagen" panelHeight="425">
+              <p:graphicImage url="/uploads/#{imagen}" alt="Image Description for #{imagen}" title="#{imagen}" />
             </p:galleria>
           </div>
         </div>
@@ -37,7 +37,7 @@
               </h:form>
             </div>
             <div class="box">
-              <h3>Ciudad: #{detalleLugarBean.lugar.ciudad.nombre}</h3>
+              <p>Ciudad: #{detalleLugarBean.lugar.ciudad.nombre}</p>
               <h:inputHidden id="pos-lat-d" value="#{detalleLugarBean.lugar.latitud}" />
               <h:inputHidden id="pos-lng-d" value="#{detalleLugarBean.lugar.longitud}" />
             </div>
@@ -56,11 +56,11 @@
         <p>#{detalleLugarBean.lugar.descripcion}</p>
       </p:panel>
 
-      <p:panel header="Hacer una nueva pregunta" rendered="#{seguridadBean.autenticado}" styleClass="mt-3">
+      <p:panel header="Hacer una nueva pregunta" styleClass="mt-3">
         <h:form>
           <h:panelGrid columns="2" cellpadding="3">
-            <p:inputTextarea value="#{detalleVehiculo.pregunta}" required="true" style="width:450px;height:300px" />
-            <p:commandButton value="Preguntar" action="#{detalleVehiculo.hacerPregunta}" update="@form, lista-c" />
+            <p:inputTextarea value="" required="true" style="width:450px;height:300px" />
+            <p:commandButton value="Preguntar" update="@form, lista-c" />
           </h:panelGrid>
           <p:growl for="msj-pregunta" showDetail="true" />
         </h:form>

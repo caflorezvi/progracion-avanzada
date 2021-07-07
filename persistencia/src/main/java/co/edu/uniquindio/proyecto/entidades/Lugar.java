@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -98,6 +99,13 @@ public class Lugar implements Serializable {
         this.usuarioCreador = usuarioCreador;
         this.ciudad = ciudad;
         this.horarios = horarios;
+    }
+
+    public String getImagenPrincipal(){
+        if(imagenes!=null && !imagenes.isEmpty()){
+            return imagenes.get(0);
+        }
+        return "default.png";
     }
 
 }
