@@ -20,7 +20,7 @@ public class Usuario extends Persona implements Serializable {
 
     @Getter
     @Setter
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "favorito",
             joinColumns = @JoinColumn(name = "id_usuario"),

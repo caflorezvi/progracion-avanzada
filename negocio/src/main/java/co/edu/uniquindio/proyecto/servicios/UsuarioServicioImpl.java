@@ -1,5 +1,6 @@
 package co.edu.uniquindio.proyecto.servicios;
 
+import co.edu.uniquindio.proyecto.entidades.Lugar;
 import co.edu.uniquindio.proyecto.entidades.Usuario;
 import co.edu.uniquindio.proyecto.repositorios.UsuarioRepo;
 import org.springframework.stereotype.Service;
@@ -75,4 +76,11 @@ public class UsuarioServicioImpl implements UsuarioServicio{
     public List<Usuario> listarUsuarios() {
         return usuarioRepo.findAll();
     }
+
+    @Override
+    public List<Lugar> listarFavoritosUsuario(Integer id) {
+        return usuarioRepo.obtenerLugaresFavoritos(id);
+    }
+
+
 }

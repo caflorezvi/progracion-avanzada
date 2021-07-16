@@ -1,5 +1,6 @@
 package co.edu.uniquindio.proyecto.servicios;
 
+import co.edu.uniquindio.proyecto.entidades.Lugar;
 import co.edu.uniquindio.proyecto.entidades.Usuario;
 import java.util.List;
 
@@ -14,5 +15,7 @@ public interface UsuarioServicio {
     Usuario obtenerUsuario(Integer id) throws Exception;
 
     List<Usuario> listarUsuarios();
+
+    List<Lugar> listarFavoritosUsuario(Integer id);
 
 }

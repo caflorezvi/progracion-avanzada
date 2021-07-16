@@ -2,6 +2,7 @@ package co.edu.uniquindio.proyecto.bean;
 
 import co.edu.uniquindio.proyecto.entidades.*;
 import co.edu.uniquindio.proyecto.servicios.LugarServicio;
+import co.edu.uniquindio.proyecto.servicios.UsuarioServicio;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,31 +24,43 @@ public class DetalleLugarBean implements Serializable {
     @Autowired
     private LugarServicio lugarServicio;
 
-    @Getter @Setter
+    @Autowired
+    private UsuarioServicio usuarioServicio;
+
+    @Getter
+    @Setter
     private Float calificacionPromedio;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private Lugar lugar;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private List<Comentario> comentarios;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private List<Horario> horarios;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private Comentario nuevoComentario;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private String icono;
 
     @Value(value = "#{seguridadBean.persona}")
     private Persona personaLogin;
 
+    @Getter
+    @Setter
+    private boolean esFavorito;
+
     @PostConstruct
     public void init(){
         this.nuevoComentario = new Comentario();
-        this.icono = "pi pi-star-o";
         if( idLugar!=null && !"".equals(idLugar) ){
             try {
                 int id = Integer.parseInt(idLugar);
@@ -55,6 +68,17 @@ public class DetalleLugarBean implements Serializable {
                 this.comentarios = lugarServicio.listarComentarios(id);
                 this.horarios = lugarServicio.listarHorarios(id);
                 this.calificacionPromedio = lugarServicio.obtenerCalificacionPromedio(id);
+
+                if( personaLogin!=null ){
+                    esFavorito = usuarioServicio.listarFavoritosUsuario(personaLogin.getId()).stream().anyMatch(l -> l.getId() == id);
+                }
+
+                if(esFavorito){
+                    this.icono = "pi pi-star";
+                }else{
+                    this.icono = "pi pi-star-o";
+                }
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -67,6 +91,7 @@ public class DetalleLugarBean implements Serializable {
                 nuevoComentario.setLugar(this.lugar);
                 nuevoComentario.setUsuario( (Usuario) personaLogin);
                 lugarServicio.crearComentario(nuevoComentario);
+                this.comentarios.add(nuevoComentario);
                 this.nuevoComentario = new Comentario();
             }
         }catch (Exception e){
