@@ -104,11 +104,4 @@ public class UsuarioTest {
         System.out.println(lista);
     }
 
-    @Test
-    @Sql("classpath:unilocal.sql")
-    public void iniciarSesionTest(){
-        Usuario u = usuarioRepo.findByEmailAndPassword("carlos@email.com", "1234");
-        Assertions.assertNotNull(u);
-    }
-
 }

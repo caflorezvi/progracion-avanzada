@@ -29,9 +29,9 @@
         <div class="col-lg-5 col-md-1">
           <div class="p-grid">
             <div class="box">
-              <p:rating value="#{detalleLugarBean.calificacionPromedio}" readonly="true"/>
+              <p:rating  readonly="true"/>
               <h1 class="mt-4">#{detalleLugarBean.lugar.nombre}</h1>
-              <h:form id="favorito-lugar">
+              <h:form id="favorito-lugar" rendered="#{seguridadBean.autenticado}" >
                 <p:commandButton icon="#{detalleLugarBean.icono}" alt="Marcar como favorito" title="Marcar como favorito" styleClass="rounded-button ui-button-warning ui-button-flat" action="#{detalleLugarBean.marcarFavorito}" update="@form"/>
               </h:form>
             </div>
@@ -55,7 +55,7 @@
         <p>#{detalleLugarBean.lugar.descripcion}</p>
       </p:panel>
 
-      <p:panel header="Hacer un comentario" styleClass="mt-3">
+      <p:panel header="Hacer un comentario" styleClass="mt-3" rendered="#{seguridadBean.autenticado}" >
         <h:form id="crear-comentario">
           <h:panelGrid columns="2" cellpadding="3">
             <p:inputTextarea value="#{detalleLugarBean.nuevoComentario.comentario}" required="true" styleClass="comentario-usuario" />

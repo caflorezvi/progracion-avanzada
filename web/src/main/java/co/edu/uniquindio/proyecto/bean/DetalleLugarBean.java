@@ -1,9 +1,6 @@
 package co.edu.uniquindio.proyecto.bean;
 
-import co.edu.uniquindio.proyecto.entidades.Comentario;
-import co.edu.uniquindio.proyecto.entidades.Horario;
-import co.edu.uniquindio.proyecto.entidades.Lugar;
-import co.edu.uniquindio.proyecto.entidades.Usuario;
+import co.edu.uniquindio.proyecto.entidades.*;
 import co.edu.uniquindio.proyecto.servicios.LugarServicio;
 import lombok.Getter;
 import lombok.Setter;
@@ -44,6 +41,9 @@ public class DetalleLugarBean implements Serializable {
     @Getter @Setter
     private String icono;
 
+    @Value(value = "#{seguridadBean.persona}")
+    private Persona personaLogin;
+
     @PostConstruct
     public void init(){
         this.nuevoComentario = new Comentario();
@@ -63,10 +63,12 @@ public class DetalleLugarBean implements Serializable {
 
     public void crearComentario(){
         try {
-            nuevoComentario.setLugar(this.lugar);
-            nuevoComentario.setUsuario(new Usuario()); //sesión
-            lugarServicio.crearComentario(nuevoComentario);
-            this.nuevoComentario = new Comentario();
+            if( personaLogin != null ) {
+                nuevoComentario.setLugar(this.lugar);
+                nuevoComentario.setUsuario( (Usuario) personaLogin);
+                lugarServicio.crearComentario(nuevoComentario);
+                this.nuevoComentario = new Comentario();
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -78,6 +80,8 @@ public class DetalleLugarBean implements Serializable {
         }else{
             this.icono = "pi pi-star-o";
         }
-        //lugarServicio.marcarFavorito(lugar, new Usuario()); //sesión
+        if( personaLogin != null ) {
+            lugarServicio.marcarFavorito(this.lugar, (Usuario) personaLogin);
+        }
     }
 }

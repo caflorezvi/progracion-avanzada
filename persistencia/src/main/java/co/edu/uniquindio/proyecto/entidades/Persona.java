@@ -8,17 +8,17 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-@MappedSuperclass
 @Getter
 @Setter
 @ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 public class Persona implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     @EqualsAndHashCode.Include
     private Integer id;
 

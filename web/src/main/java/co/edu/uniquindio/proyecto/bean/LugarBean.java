@@ -1,9 +1,6 @@
 package co.edu.uniquindio.proyecto.bean;
 
-import co.edu.uniquindio.proyecto.entidades.Ciudad;
-import co.edu.uniquindio.proyecto.entidades.Horario;
-import co.edu.uniquindio.proyecto.entidades.Lugar;
-import co.edu.uniquindio.proyecto.entidades.TipoLugar;
+import co.edu.uniquindio.proyecto.entidades.*;
 import co.edu.uniquindio.proyecto.servicios.CiudadServicio;
 import co.edu.uniquindio.proyecto.servicios.LugarServicio;
 import co.edu.uniquindio.proyecto.servicios.UsuarioServicio;
@@ -52,6 +49,9 @@ public class LugarBean implements Serializable {
     @Getter @Setter
     private Horario horario;
 
+    @Value(value = "#{seguridadBean.persona}")
+    private Persona personaLogin;
+
     public LugarBean(LugarServicio lugarServicio, CiudadServicio ciudadServicio, UsuarioServicio usuarioServicio) {
         this.lugarServicio = lugarServicio;
         this.ciudadServicio = ciudadServicio;
@@ -70,21 +70,23 @@ public class LugarBean implements Serializable {
 
     public String crearLugar(){
         try{
-            if( lugar.getLatitud()!=null && lugar.getLongitud()!=null && !imagenes.isEmpty() && !horarios.isEmpty()) {
-                lugar.setUsuarioCreador(usuarioServicio.obtenerUsuario(9));
-                lugar.setImagenes(imagenes);
-                Lugar creado = lugarServicio.crearLugar(lugar);
+            if(personaLogin!=null) {
+                if (lugar.getLatitud() != null && lugar.getLongitud() != null && !imagenes.isEmpty() && !horarios.isEmpty()) {
+                    lugar.setUsuarioCreador( (Usuario) personaLogin );
+                    lugar.setImagenes(imagenes);
+                    Lugar creado = lugarServicio.crearLugar(lugar);
 
-                for (Horario h : horarios) {
-                    h.setLugar(creado);
-                    lugarServicio.crearHorario(h);
+                    for (Horario h : horarios) {
+                        h.setLugar(creado);
+                        lugarServicio.crearHorario(h);
+                    }
+
+                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alerta", "El lugar se creó correctamente");
+                    FacesContext.getCurrentInstance().addMessage("mensaje_bean", msg);
+                } else {
+                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Alerta", "Es necesario ubicar el lugar dentro del mapa y subir al menos una imagen");
+                    FacesContext.getCurrentInstance().addMessage("mensaje_bean", msg);
                 }
-
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,"Alerta", "El lugar se creó correctamente");
-                FacesContext.getCurrentInstance().addMessage("mensaje_bean", msg);
-            }else{
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Alerta", "Es necesario ubicar el lugar dentro del mapa y subir al menos una imagen");
-                FacesContext.getCurrentInstance().addMessage("mensaje_bean", msg);
             }
         }catch (Exception e){
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Alerta", e.getMessage());

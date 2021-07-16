@@ -15,8 +15,6 @@ public interface UsuarioRepo extends JpaRepository<Usuario, Integer> {
 
     Optional<Usuario> findByEmail(String email);
 
-    Usuario findByEmailAndPassword(String email, String password);
-
     @Query("select f from Usuario u, IN(u.lugaresFavoritos) f where u.id = :id")
     List<Lugar> obtenerLugaresFavoritos(Integer id);
 
