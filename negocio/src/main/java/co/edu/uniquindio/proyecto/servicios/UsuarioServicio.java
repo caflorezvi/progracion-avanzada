@@ -18,4 +18,6 @@ public interface UsuarioServicio {
 
     List<Lugar> listarFavoritosUsuario(Integer id);
 
+    List<Lugar> obtenerMisLugares(Integer idUsuario);
+
 }

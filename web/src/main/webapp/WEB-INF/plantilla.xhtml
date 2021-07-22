@@ -38,6 +38,9 @@
               <li class="nav-item" jsf:rendered="#{seguridadBean.autenticado and seguridadBean.rol == 'usuario'}">
                 <a class="nav-link" href="/usuario/crearLugar.xhtml">Crear Lugar</a>
               </li>
+              <li class="nav-item" jsf:rendered="#{seguridadBean.autenticado and seguridadBean.rol == 'usuario'}">
+                <a class="nav-link" href="/usuario/misLugares.xhtml">Mis lugares</a>
+              </li>
               <li class="nav-item" jsf:rendered="#{seguridadBean.autenticado}">
                 <a class="nav-link" href="/usuario/perfil.xhtml">Perfil</a>
               </li>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xml:lang="en" lang="en">
+<ui:composition template="/WEB-INF/plantilla.xhtml" >
+    <ui:define name="title">Unilocal | Mis Lugares</ui:define>
+    <ui:define name="content">
+        <div class="container mt-4" >
+            <h:form id="form">
+                <p:dataView var="lugar" value="#{misLugaresBean.misLugares}" rows="12" paginator="true" gridIcon="pi pi-th-large" listIcon="pi pi-bars" >
+                    <p:dataViewGridItem>
+                        <div class="card" style="width: 18rem;">
+                            <img src="/uploads/#{lugar.imagenPrincipal}" class="card-img-top" alt="..." />
+                            <div class="card-body">
+                                <h5 class="card-title">#{lugar.nombre}</h5>
+                                <p class="card-text">#{lugar.descripcion}</p>
+                                <p:commandButton value="Ver detalle" update="lista-comentarios" oncomplete="PF('lista-comentarios').show();" action="#{misLugaresBean.mostrarComentarios(lugar.id)}" styleClass="ui-button-raised" icon="pi pi-arrow-right" iconPos="right" />
+                            </div>
+                        </div>
+                    </p:dataViewGridItem>
+                    <p:dataViewListItem>
+                        <h:panelGrid columns="3" style="width:100%" columnClasses="logo,detail">
+                            <p:graphicImage url="/uploads/#{lugar.imagenPrincipal}" styleClass="imagen-lugar" />
+                            <p:outputPanel>
+                                <h:panelGrid columns="2" cellpadding="5">
+                                    <h:outputText value="Nombre:" />
+                                    <h:outputText value="#{lugar.nombre}" style="font-weight: bold" />
+                                    <h:outputText value="Tipo:" />
+                                    <h:outputText value="#{lugar.tipo.nombre}" />
+                                    <h:outputText value="Descripción:" />
+                                    <h:outputText value="#{lugar.descripcion}" />
+                                </h:panelGrid>
+                            </p:outputPanel>
+                            <p:commandButton value="Ver detalle" update="lista-comentarios" oncomplete="PF('lista-comentarios').show();" action="#{misLugaresBean.mostrarComentarios(lugar.id)}" styleClass="ui-button-raised" icon="pi pi-arrow-right" iconPos="right" />
+                        </h:panelGrid>
+                    </p:dataViewListItem>
+                </p:dataView>
+            </h:form>
+        </div>
+        <p:dialog id="lista-comentarios" header="Lista comentarios" showEffect="fade" modal="true" widgetVar="lista-comentarios" >
+            <p:dataList id="lista-coms" value="#{misLugaresBean.comentarios}" var="comentario" emptyMessage="No hay comentarios sin responder" >
+                <p>#{comentario.id} - #{comentario.comentario}</p>
+            </p:dataList>
+            <hr />
+            <h:form>
+                <h:panelGrid columns="2" cellpadding="5">
+                    <p:outputLabel for="com-id" value="Comentario:" />
+                    <p:selectOneMenu id="com-id" value="#{misLugaresBean.comentarioSeleccionado}" required="true"  converter="#{comentarioConverter}">
+                        <f:selectItem noSelectionOption="true" itemLabel="Seleccione el comentario a responder" />
+                        <f:selectItems value="#{misLugaresBean.comentarios}" var="com" itemLabel="#{com.id}" />
+                    </p:selectOneMenu>
+                    <p:outputLabel for="com-res" value="Respuesta:" />
+                    <p:inputTextarea id="com-res" value="#{misLugaresBean.respuesta}" required="true" />
+                </h:panelGrid>
+                <p:commandButton action="#{misLugaresBean.responderComentario}" value="Responder comentario" styleClass="mt-4" update="@form,lista-coms" />
+                <p:growl for="respuesta-com" showDetail="true" />
+            </h:form>
+
+        </p:dialog>
+    </ui:define>
+</ui:composition>
+</html>

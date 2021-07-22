@@ -18,4 +18,6 @@ public interface UsuarioRepo extends JpaRepository<Usuario, Integer> {
     @Query("select f from Usuario u, IN(u.lugaresFavoritos) f where u.id = :id")
     List<Lugar> obtenerLugaresFavoritos(Integer id);
 
+    @Query("select l from Usuario u, IN(u.lugaresCreados) l where u.id = :id")
+    List<Lugar> obtenerLugaresCreados(Integer id);
 }

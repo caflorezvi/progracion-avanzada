@@ -27,35 +27,28 @@ public class DetalleLugarBean implements Serializable {
     @Autowired
     private UsuarioServicio usuarioServicio;
 
-    @Getter
-    @Setter
-    private Float calificacionPromedio;
+    @Getter @Setter
+    private Integer calificacionPromedio;
 
-    @Getter
-    @Setter
+    @Getter @Setter
     private Lugar lugar;
 
-    @Getter
-    @Setter
+    @Getter @Setter
     private List<Comentario> comentarios;
 
-    @Getter
-    @Setter
+    @Getter @Setter
     private List<Horario> horarios;
 
-    @Getter
-    @Setter
+    @Getter @Setter
     private Comentario nuevoComentario;
 
-    @Getter
-    @Setter
+    @Getter @Setter
     private String icono;
 
     @Value(value = "#{seguridadBean.persona}")
     private Persona personaLogin;
 
-    @Getter
-    @Setter
+    @Getter @Setter
     private boolean esFavorito;
 
     @PostConstruct
@@ -67,7 +60,13 @@ public class DetalleLugarBean implements Serializable {
                 this.lugar = lugarServicio.obtenerLugar(id);
                 this.comentarios = lugarServicio.listarComentarios(id);
                 this.horarios = lugarServicio.listarHorarios(id);
-                this.calificacionPromedio = lugarServicio.obtenerCalificacionPromedio(id);
+
+                Float calificacion = lugarServicio.obtenerCalificacionPromedio(id);
+                if(calificacion!=null){
+                    this.calificacionPromedio = Math.round(calificacion);
+                }else{
+                    this.calificacionPromedio = 0;
+                }
 
                 if( personaLogin!=null ){
                     esFavorito = usuarioServicio.listarFavoritosUsuario(personaLogin.getId()).stream().anyMatch(l -> l.getId() == id);

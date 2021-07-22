@@ -52,6 +52,11 @@ public class LugarBean implements Serializable {
     @Value(value = "#{seguridadBean.persona}")
     private Persona personaLogin;
 
+    private ArrayList<String> telefonos;
+
+    @Getter @Setter
+    private String telefono;
+
     public LugarBean(LugarServicio lugarServicio, CiudadServicio ciudadServicio, UsuarioServicio usuarioServicio) {
         this.lugarServicio = lugarServicio;
         this.ciudadServicio = ciudadServicio;
@@ -63,6 +68,7 @@ public class LugarBean implements Serializable {
         this.lugar = new Lugar();
         this.imagenes = new ArrayList<>();
         this.horarios = new ArrayList<>();
+        this.telefonos = new ArrayList<>();
         this.horario = new Horario();
         this.ciudades = ciudadServicio.listarCiudades();
         this.tipoLugares = lugarServicio.listarTiposLugares();
@@ -72,8 +78,10 @@ public class LugarBean implements Serializable {
         try{
             if(personaLogin!=null) {
                 if (lugar.getLatitud() != null && lugar.getLongitud() != null && !imagenes.isEmpty() && !horarios.isEmpty()) {
+                    telefonos.add(telefono);
                     lugar.setUsuarioCreador( (Usuario) personaLogin );
                     lugar.setImagenes(imagenes);
+                    lugar.setTelefonos(telefonos);
                     Lugar creado = lugarServicio.crearLugar(lugar);
 
                     for (Horario h : horarios) {

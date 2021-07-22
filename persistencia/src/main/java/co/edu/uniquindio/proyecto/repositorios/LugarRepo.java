@@ -21,6 +21,9 @@ public interface LugarRepo extends JpaRepository<Lugar, Integer> {
     @Query("select c from Comentario c where c.lugar.id = :idLugar")
     List<Comentario> listarComentarios(Integer idLugar);
 
+    @Query("select c from Comentario c where c.lugar.id = :idLugar and c.respuesta is null")
+    List<Comentario> listarComentariosSinResponder(Integer idLugar);
+
     @Query("select h from Horario h where h.lugar.id = :idLugar")
     List<Horario> listarHorarios(Integer idLugar);
 

@@ -82,5 +82,9 @@ public class UsuarioServicioImpl implements UsuarioServicio{
         return usuarioRepo.obtenerLugaresFavoritos(id);
     }
 
+    @Override
+    public List<Lugar> obtenerMisLugares(Integer idUsuario) {
+        return usuarioRepo.obtenerLugaresCreados(idUsuario);
+    }
 
 }

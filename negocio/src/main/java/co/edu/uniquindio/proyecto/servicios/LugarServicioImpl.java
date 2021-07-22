@@ -96,6 +96,11 @@ public class LugarServicioImpl implements LugarServicio{
     }
 
     @Override
+    public List<Comentario> listarComentariosSinResponder(Integer idLugar) {
+        return lugarRepo.listarComentariosSinResponder(idLugar);
+    }
+
+    @Override
     public List<Horario> listarHorarios(Integer idLugar) {
         return lugarRepo.listarHorarios(idLugar);
     }
@@ -136,5 +141,23 @@ public class LugarServicioImpl implements LugarServicio{
             usuario.getLugaresFavoritos().add(lugar);
         }
         usuarioRepo.save(usuario);
+    }
+
+    @Override
+    public void responderComentario(Integer idComentario, String respuesta) {
+        Comentario comentario = comentarioRepo.findById(idComentario).orElse(null);
+        if(comentario!=null){
+            comentario.setRespuesta(respuesta);
+            comentarioRepo.save(comentario);
+        }
+    }
+
+    @Override
+    public Comentario obtenerComentario(Integer id) throws Exception {
+        Optional<Comentario> objeto = comentarioRepo.findById(id);
+        if( objeto.isEmpty() ){
+            throw new Exception("El id no es válido");
+        }
+        return objeto.get();
     }
 }

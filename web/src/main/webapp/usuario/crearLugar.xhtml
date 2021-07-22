@@ -29,7 +29,7 @@
               <h:panelGrid columns="2" cellpadding="5" rowClasses="form-row">
 
                 <p:outputLabel for="nombre_lugar" value="Nombre:" />
-                <p:inputText id="nombre_lugar" value="#{lugarBean.lugar.nombre}" required="true"  />
+                <p:inputText id="nombre_lugar" value="#{lugarBean.lugar.nombre}" required="true"  requiredMessage="El nombre del lugar es obligatorio" />
 
                 <p:outputLabel for="ciudad_lugar" value="Ciudad: " />
                 <p:selectOneMenu id="ciudad_lugar" value="#{lugarBean.lugar.ciudad}" converter="#{ciudadConverter}" required="true" requiredMessage="La ciudad es obligatoria" >
@@ -38,10 +38,13 @@
                 </p:selectOneMenu>
 
                 <p:outputLabel for="tipo_lugar" value="Tipo lugar: " />
-                <p:selectOneMenu id="tipo_lugar" value="#{lugarBean.lugar.tipo}" converter="#{tipoLugarConverter}" required="true" requiredMessage="El tipo del lugar es obligatoria" >
+                <p:selectOneMenu id="tipo_lugar" value="#{lugarBean.lugar.tipo}" converter="#{tipoLugarConverter}" required="true" requiredMessage="El tipo del lugar es obligatorio" >
                   <f:selectItem itemLabel="Seleccione el tipo del lugar:" noSelectionOption="true"  />
                   <f:selectItems var="tipo" itemLabel="#{tipo.nombre}" value="#{lugarBean.tipoLugares}" />
                 </p:selectOneMenu>
+
+                <p:outputLabel for="numero_lugar" value="Número de teléfono:" />
+                <p:inputText id="numero_lugar" value="#{lugarBean.telefono}" required="true" requiredMessage="El número de teléfono es obligatorio"/>
 
                 <p:outputLabel for="imagenes_lugar" value="Imágenes: " />
                 <p:fileUpload id="imagenes_lugar"

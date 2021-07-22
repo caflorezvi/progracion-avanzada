@@ -26,6 +26,8 @@ public interface LugarServicio {
 
     List<Comentario> listarComentarios(Integer idLugar);
 
+    List<Comentario> listarComentariosSinResponder(Integer idLugar);
+
     List<Horario> listarHorarios(Integer idLugar);
 
     void crearComentario(Comentario comentario) throws Exception;
@@ -35,4 +37,8 @@ public interface LugarServicio {
     Float obtenerCalificacionPromedio(Integer idLugar) throws Exception;
 
     void marcarFavorito(Lugar lugar, Usuario usuario);
+
+    void responderComentario(Integer idComentario, String respuesta);
+
+    Comentario obtenerComentario(Integer id) throws Exception;
 }
