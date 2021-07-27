@@ -1,5 +1,6 @@
 package co.edu.uniquindio.proyecto.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,7 +10,6 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @ToString(callSuper = true, onlyExplicitlyIncluded = true)
-@AllArgsConstructor
 public class Usuario extends Persona implements Serializable {
 
     @Getter
@@ -25,6 +25,7 @@ public class Usuario extends Persona implements Serializable {
             name = "favorito",
             joinColumns = @JoinColumn(name = "id_usuario"),
             inverseJoinColumns = @JoinColumn(name = "id_lugar"))
+    @JsonIgnore
     private List<Lugar> lugaresFavoritos = new ArrayList<>();
 
     @OneToMany(mappedBy = "usuario")

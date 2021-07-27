@@ -1,6 +1,8 @@
 package co.edu.uniquindio.proyecto.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.springframework.boot.jackson.JsonComponent;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -78,14 +80,17 @@ public class Lugar implements Serializable {
 
     @OneToMany(mappedBy = "lugar")
     @ToString.Exclude
+    @JsonIgnore
     private List<Horario> horarios;
 
     @OneToMany(mappedBy = "lugar")
     @ToString.Exclude
+    @JsonIgnore
     private List<Comentario> comentarios;
 
     @ManyToMany(mappedBy = "lugaresFavoritos")
     @ToString.Exclude
+    @JsonIgnore
     private List<Usuario> usuariosFavoritos;
 
     @Builder
