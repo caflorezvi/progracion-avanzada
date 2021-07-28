@@ -13,9 +13,9 @@ function cargarMapa(lat, lng, zoom){
     let enable = true;
     mapboxgl.accessToken = 'pk.eyJ1IjoiY2FmbG9yZXp2aSIsImEiOiJja2EwZWF0YnEwMm82M2ZtazBvZWV3dHM1In0.YpYaeS5Y1RSvwBgVFvDMyA';
 
-    var map = new mapboxgl.Map({
+    let map = new mapboxgl.Map({
         container: 'mapa',
-        style: 'mapbox://styles/mapbox/streets-v11',
+        style: 'mapbox://styles/mapbox/streets-v11?optimize=true',
         center: [lng, lat],
         zoom: zoom
     });

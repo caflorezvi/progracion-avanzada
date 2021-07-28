@@ -30,8 +30,7 @@ public class UsuarioRestTest {
     public void registrarTest() throws Exception {
         Usuario usuario = Usuario.builder().nombre("Juanita").nickname("juana").password("1234").email("juana@email.com").build();
 
-        mockMvc.perform(
-                post("/api/usuarios")
+        mockMvc.perform(post("/api/usuarios")
                         .contentType("application/json")
                         .content(objectMapper.writeValueAsString(usuario)))
                 .andDo(MockMvcResultHandlers.print())
@@ -43,7 +42,7 @@ public class UsuarioRestTest {
     @Transactional
     public void obtenerUsuarioTest() throws Exception {
         mockMvc.perform(get("/api/usuarios/{id}", 2)
-                .contentType("application/json"))
+                        .contentType("application/json"))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk());
     }

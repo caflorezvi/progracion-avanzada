@@ -1,9 +1,7 @@
 package co.edu.uniquindio.proyecto.entidades;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
@@ -15,6 +13,7 @@ import java.util.Date;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Getter
 @Setter
+@ToString
 public class Horario implements Serializable {
 
     @Id
@@ -36,6 +35,7 @@ public class Horario implements Serializable {
 
     @ManyToOne
     @JoinColumn(nullable = false)
+    @ToString.Exclude
     private Lugar lugar;
 
     public Horario(Date horaInicio, Date horaFin, String diaSemana) {

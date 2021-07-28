@@ -12,14 +12,14 @@ function crearMapa(lugares){
     if(bounds.isEmpty()) {
         var map = new mapboxgl.Map({
             container: 'map',
-            style: 'mapbox://styles/mapbox/streets-v11',
+            style: 'mapbox://styles/mapbox/streets-v11?optimize=true',
             center: [-72.309, 4.473],
             zoom: 4.5
         });
     }else{
         var map = new mapboxgl.Map({
             container: 'map',
-            style: 'mapbox://styles/mapbox/streets-v11',
+            style: 'mapbox://styles/mapbox/streets-v11?optimize=true',
             center: [-72.309, 4.473],
             zoom: 11,
             bounds: bounds

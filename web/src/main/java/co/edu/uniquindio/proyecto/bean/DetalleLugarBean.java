@@ -59,7 +59,7 @@ public class DetalleLugarBean implements Serializable {
                 int id = Integer.parseInt(idLugar);
                 this.lugar = lugarServicio.obtenerLugar(id);
                 this.comentarios = lugarServicio.listarComentarios(id);
-                this.horarios = lugarServicio.listarHorarios(id);
+                this.horarios = this.lugar.getHorarios();
 
                 Float calificacion = lugarServicio.obtenerCalificacionPromedio(id);
                 if(calificacion!=null){

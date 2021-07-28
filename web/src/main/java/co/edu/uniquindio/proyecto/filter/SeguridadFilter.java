@@ -55,6 +55,8 @@ public class SeguridadFilter implements Filter {
                 }
             }else{
                 //La página solicitada no está en la carpeta /usuario entonces el filtro no aplica
+                ( (HttpServletResponse) servletResponse).setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+                ( (HttpServletResponse) servletResponse).setHeader("Pragma", "no-cache"); // HTTP 1.0.
                 filterChain.doFilter(servletRequest, servletResponse);
             }
         } catch (Exception e) {

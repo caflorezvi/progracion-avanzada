@@ -8,6 +8,11 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -81,7 +86,7 @@ public class Lugar implements Serializable {
     @OneToMany(mappedBy = "lugar")
     @ToString.Exclude
     @JsonIgnore
-    private List<Horario> horarios;
+    private List<Horario> horarios = new ArrayList<>();
 
     @OneToMany(mappedBy = "lugar")
     @ToString.Exclude
@@ -111,6 +116,44 @@ public class Lugar implements Serializable {
             return imagenes.get(0);
         }
         return "default.png";
+    }
+
+    public String getAbierto(){
+        LocalDateTime horaActual = LocalDateTime.now();
+        int diaActual = LocalDateTime.now().getDayOfWeek().getValue();
+        LocalTime horaI, horaF;
+        LocalTime ltActual = LocalTime.of(horaActual.getHour(), horaActual.getMinute());
+
+        for(Horario h : horarios){
+            if( diaActual == getDiaSemana( h.getDiaSemana()) ){
+                horaI = new Date(h.getHoraInicio().getTime()).toInstant().atZone(ZoneId.systemDefault()).toLocalTime();
+                horaF = new Date(h.getHoraFin().getTime()).toInstant().atZone(ZoneId.systemDefault()).toLocalTime();
+                if( ltActual.compareTo(horaI) > 0 && ltActual.compareTo(horaF) < 0 ){
+                    return "Abierto";
+                }
+            }
+        }
+        return "Cerrado";
+    }
+
+    public int getDiaSemana(String dia){
+        switch (dia){
+            case "lunes":
+                return 1;
+            case "martes":
+                return 2;
+            case "miercoles":
+                return 3;
+            case "jueves":
+                return 4;
+            case "viernes":
+                return 5;
+            case "sabado":
+                return 6;
+            case "domingo":
+                return 7;
+        }
+        return 0;
     }
 
 }

@@ -21,9 +21,10 @@
       <div class="row" >
         <div class="col-lg-7 col-md-1">
           <div class="box box-stretched">
-            <p:galleria value="#{detalleLugarBean.lugar.imagenes}" var="imagen" panelHeight="425">
+            <p:galleria rendered="#{detalleLugarBean.lugar.imagenes.size() > 0}" value="#{detalleLugarBean.lugar.imagenes}" var="imagen" panelHeight="425">
               <p:graphicImage url="/uploads/#{imagen}" alt="Image Description for #{imagen}" title="#{imagen}" />
             </p:galleria>
+            <p:graphicImage rendered="#{detalleLugarBean.lugar.imagenes.size() == 0}" url="/uploads/#{detalleLugarBean.lugar.imagenPrincipal}" alt="Image Description for #{detalleLugarBean.lugar.imagenPrincipal}" title="#{detalleLugarBean.lugar.imagenPrincipal}" />
           </div>
         </div>
 
@@ -38,14 +39,14 @@
             </div>
             <div class="box">
               <p>Ciudad: #{detalleLugarBean.lugar.ciudad.nombre}</p>
-
-              <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a><script async="true" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
               <h:inputHidden id="pos-lat-d" value="#{detalleLugarBean.lugar.latitud}" />
               <h:inputHidden id="pos-lng-d" value="#{detalleLugarBean.lugar.longitud}" />
+              <a href="/ruta.xhtml?lat=#{detalleLugarBean.lugar.latitud}&amp;lng=#{detalleLugarBean.lugar.longitud}"><i class="pi pi-angle-double-right"></i> Ir al lugar</a>
             </div>
 
             <p:dataList emptyMessage="No hay horarios para este lugar" styleClass="lista-carac" value="#{detalleLugarBean.horarios}" var="horario">
               <f:facet name="header">Horarios</f:facet>
+              <f:facet name="footer"><p:tag severity="#{detalleLugarBean.lugar.abierto == 'Abierto' ? 'success' : 'danger'}" value="#{detalleLugarBean.lugar.abierto}" rounded="true" ></p:tag></f:facet>
               <p>#{horario.diaSemana}, #{horario.horaI} - #{horario.horaF}</p>
             </p:dataList>
           </div>
