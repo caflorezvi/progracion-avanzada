@@ -2,6 +2,7 @@ package co.edu.uniquindio.proyecto.servicios;
 
 import co.edu.uniquindio.proyecto.entidades.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface LugarServicio {
@@ -41,4 +42,6 @@ public interface LugarServicio {
     void responderComentario(Integer idComentario, String respuesta);
 
     Comentario obtenerComentario(Integer id) throws Exception;
+
+    List<Lugar> filtrarLugares( HashMap<String, Object> propiedades );
 }

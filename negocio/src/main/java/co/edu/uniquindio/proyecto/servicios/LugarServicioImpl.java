@@ -2,12 +2,17 @@ package co.edu.uniquindio.proyecto.servicios;
 
 import co.edu.uniquindio.proyecto.entidades.*;
 import co.edu.uniquindio.proyecto.repositorios.*;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+
+import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.contains;
 
 @Service
 @Transactional
@@ -159,5 +164,35 @@ public class LugarServicioImpl implements LugarServicio{
             throw new Exception("El id no es válido");
         }
         return objeto.get();
+    }
+
+    @Override
+    public List<Lugar> filtrarLugares( HashMap<String, Object> propiedades) {
+        try {
+            //TipoLugar tipoLugar = obtenerTipoLugar(3);
+            //Ciudad ciudad = ciudadRepo.findById(1).get();
+            Lugar.LugarBuilder l = Lugar.builder();
+            ExampleMatcher matcher = ExampleMatcher.matchingAll();
+
+            if( propiedades.get("nombre") != null ){
+                l.nombre( propiedades.get("nombre").toString() );
+                matcher = matcher.withMatcher("nombre", contains() ).withIgnoreCase();
+            }
+
+            if( propiedades.get("ciudad") != null ){
+                l.ciudad( (Ciudad) propiedades.get("ciudad") );
+                matcher = matcher.withMatcher("ciudad", contains().exact() );
+            }
+
+            if( propiedades.get("tipoLugar") != null ){
+                l.tipo( (TipoLugar) propiedades.get("tipoLugar") );
+                matcher = matcher.withMatcher("tipo", contains().exact() );
+            }
+
+            return lugarRepo.findAll(Example.of(l.build(), matcher));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return  null;
     }
 }
