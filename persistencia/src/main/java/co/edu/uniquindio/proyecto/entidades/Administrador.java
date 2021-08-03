@@ -1,5 +1,6 @@
 package co.edu.uniquindio.proyecto.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
@@ -18,6 +19,7 @@ public class Administrador extends Persona implements Serializable {
     }
 
     @OneToMany(mappedBy = "admin")
+    @JsonIgnore
     private List<Moderador> moderadores;
 
 }

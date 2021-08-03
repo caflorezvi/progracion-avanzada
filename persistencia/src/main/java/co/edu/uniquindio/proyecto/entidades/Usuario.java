@@ -29,9 +29,11 @@ public class Usuario extends Persona implements Serializable {
     private List<Lugar> lugaresFavoritos = new ArrayList<>();
 
     @OneToMany(mappedBy = "usuario")
+    @JsonIgnore
     private List<Comentario> comentarios;
 
     @OneToMany(mappedBy = "usuarioCreador")
+    @JsonIgnore
     private List<Lugar> lugaresCreados;
 
     @Builder

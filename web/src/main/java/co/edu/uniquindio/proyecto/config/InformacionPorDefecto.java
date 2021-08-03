@@ -28,8 +28,8 @@ public class InformacionPorDefecto implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        /*
-        if( !adminService.existenAdmins() ){
+
+        /*if( !adminService.existenAdmins() ){
 
             Usuario u1 = Usuario.builder().nombre("Pepe").email("pepe@email.com").nickname("pepito").password("1234").build();
             usuarioServicio.registrarUsuario(u1);
@@ -103,8 +103,10 @@ public class InformacionPorDefecto implements CommandLineRunner {
             lugarServicio.crearComentario(com1);
             lugarServicio.crearComentario(com2);
 
-        }
-        */
+            lugarServicio.marcarFavorito(l1, u1);
+            lugarServicio.marcarFavorito(l2, u1);
+
+        }*/
 
     }
 }
