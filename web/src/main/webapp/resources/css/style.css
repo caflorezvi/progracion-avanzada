@@ -39,6 +39,7 @@
 
 .imagen-lugar{
     max-width: 200px;
+    width: 100%;
 }
 
 .box, .sample-layout>div {

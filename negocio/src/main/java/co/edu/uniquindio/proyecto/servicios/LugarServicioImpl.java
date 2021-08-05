@@ -59,7 +59,7 @@ public class LugarServicioImpl implements LugarServicio{
 
     @Override
     public List<Lugar> listarLugares() {
-        return lugarRepo.findAll();
+        return lugarRepo.findAllByEstado(true);
     }
 
     @Override
@@ -167,6 +167,11 @@ public class LugarServicioImpl implements LugarServicio{
     }
 
     @Override
+    public List<Lugar> obtenerLugaresCercanos(Float lng, Float lat, Double distancia) {
+        return lugarRepo.obtenerLugaresCercanos(lng, lat, distancia);
+    }
+
+    @Override
     public List<Lugar> filtrarLugares( HashMap<String, Object> propiedades) {
         try {
             //TipoLugar tipoLugar = obtenerTipoLugar(3);
@@ -189,10 +194,14 @@ public class LugarServicioImpl implements LugarServicio{
                 matcher = matcher.withMatcher("tipo", contains().exact() );
             }
 
+            l.estado(true);
+            matcher = matcher.withMatcher("estado", contains().exact() );
+
             return lugarRepo.findAll(Example.of(l.build(), matcher));
         } catch (Exception e) {
             e.printStackTrace();
         }
         return  null;
     }
+
 }

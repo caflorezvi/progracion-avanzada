@@ -99,7 +99,7 @@ public class Lugar implements Serializable {
     private List<Usuario> usuariosFavoritos;
 
     @Builder
-    public Lugar(String nombre, String descripcion, Float latitud, Float longitud, List<String> imagenes, TipoLugar tipo, Usuario usuarioCreador, Ciudad ciudad, List<Horario> horarios) {
+    public Lugar(String nombre, String descripcion, Float latitud, Float longitud, List<String> imagenes, TipoLugar tipo, Usuario usuarioCreador, Ciudad ciudad, List<Horario> horarios, boolean estado) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.latitud = latitud;
@@ -109,6 +109,7 @@ public class Lugar implements Serializable {
         this.usuarioCreador = usuarioCreador;
         this.ciudad = ciudad;
         this.horarios = horarios;
+        this.estado = estado;
     }
 
     public String getImagenPrincipal(){

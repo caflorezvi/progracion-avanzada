@@ -27,7 +27,8 @@ window.onload = function () {
             map.addControl(new mapboxgl.NavigationControl());
 
             let directions = new MapboxDirections({
-                accessToken: mapboxgl.accessToken
+                accessToken: mapboxgl.accessToken,
+                unit: "metric"
             })
 
             map.addControl(directions, 'top-left');

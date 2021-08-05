@@ -16,12 +16,61 @@
     </ui:define>
     <ui:define name="title">Unilocal | Resultado de la búsqueda</ui:define>
     <ui:define name="content">
+        <div class="container mt-4 mb-4" >
+            <div id="filtros" >
+                <p:card>
+                    <div class="row d-flex" >
+                        <div class="col-2 align-self-center">
+                            <span>Filtros</span>
+                        </div>
+                        <div class="col-3 align-self-center">
+                            <h:form>
+                                <p>Distancia: </p>
+                                <p:selectOneMenu value="#{busquedaBean.distanciaFiltro}"  >
+                                    <f:selectItem noSelectionOption="true" itemLabel="Seleccione la distancia" />
+                                    <f:selectItem itemValue="2" itemLabel="2 km" />
+                                    <f:selectItem itemValue="5" itemLabel="5 km" />
+                                    <f:selectItem itemValue="10" itemLabel="10 km" />
+                                    <f:selectItem itemValue="20" itemLabel="20 km" />
+                                    <f:selectItem itemValue="50" itemLabel="50 km" />
+                                    <f:selectItem itemValue="100" itemLabel="100 km" />
+                                    <p:ajax listener="#{busquedaBean.aplicarFiltro}" update="msj-filtro,form:lista-res" />
+                                </p:selectOneMenu>
+                            </h:form>
+                        </div>
+                        <div class="col-3 align-self-center">
+                            <h:form>
+                                <p>Tipo: </p>
+                                <p:selectOneMenu converter="#{tipoLugarConverter}" value="#{busquedaBean.tipoFiltro}" >
+                                    <f:selectItem noSelectionOption="true" itemLabel="Seleccione el tipo de lugar" />
+                                    <f:selectItems value="#{busquedaBean.tipos}" var="tipo" itemLabel="#{tipo.nombre}" itemValue="#{tipo}" />
+                                    <p:ajax listener="#{busquedaBean.aplicarFiltro}" update="msj-filtro,form:lista-res" />
+                                </p:selectOneMenu>
+                            </h:form>
+                        </div>
+                        <div class="col-3 align-self-center">
+                            <h:form>
+                                <p>Ciudad: </p>
+                                <p:selectOneMenu converter="#{ciudadConverter}" value="#{busquedaBean.ciudadFiltro}" >
+                                    <f:selectItem noSelectionOption="true" itemLabel="Seleccione la ciudad" />
+                                    <f:selectItems value="#{busquedaBean.ciudades}" var="ciudad" itemLabel="#{ciudad.nombre}" itemValue="#{ciudad}" />
+                                    <p:ajax listener="#{busquedaBean.aplicarFiltro}" update="msj-filtro,form:lista-res" />
+                                </p:selectOneMenu>
+                            </h:form>
+                        </div>
+                    </div>
+                    <p:growl for="msj-filtro" id="msj-filtro" showDetail="true" />
+                </p:card>
+            </div>
+        </div>
+
         <div id="mapa" >
             <div id='map' ></div>
+            <p:remoteCommand name="obtenerPosicion" action="#{busquedaBean.obtenerPosicion}"  />
         </div>
         <div class="container mt-4" >
             <h:form id="form">
-                <p:dataView var="lugar" value="#{busquedaBean.lugares}" rows="12" paginator="true" gridIcon="pi pi-th-large" listIcon="pi pi-bars" >
+                <p:dataView id="lista-res" var="lugar" value="#{busquedaBean.lugares}" rows="12" paginator="true" gridIcon="pi pi-th-large" listIcon="pi pi-bars" >
                     <p:dataViewGridItem>
                         <div class="card" style="width: 18rem;">
                             <img src="/uploads/#{lugar.imagenPrincipal}" class="card-img-top" alt="..." />

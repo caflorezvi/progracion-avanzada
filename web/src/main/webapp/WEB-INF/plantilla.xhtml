@@ -47,6 +47,9 @@
               <li class="nav-item" jsf:rendered="#{seguridadBean.autenticado and seguridadBean.rol == 'admin'}">
                 <a class="nav-link" href="/administrador/crearModerador.xhtml">Crear moderador</a>
               </li>
+              <li class="nav-item" jsf:rendered="#{seguridadBean.autenticado and seguridadBean.rol == 'moderador'}">
+                <a class="nav-link" href="/moderador/aprobarLugar.xhtml">Aprobar/rechazar lugares</a>
+              </li>
             </ul>
             <div class="d-flex">
               <h:form class="d-flex me-2">

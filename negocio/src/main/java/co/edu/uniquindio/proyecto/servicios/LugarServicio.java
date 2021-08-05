@@ -43,5 +43,8 @@ public interface LugarServicio {
 
     Comentario obtenerComentario(Integer id) throws Exception;
 
+    List<Lugar> obtenerLugaresCercanos( Float lng, Float lat, Double distancia );
+
     List<Lugar> filtrarLugares( HashMap<String, Object> propiedades );
+
 }
