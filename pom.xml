@@ -21,7 +21,7 @@
     <artifactId>proyecto-principal</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>Proyecto principal</name>
-    <description>Este proyecto agrupa los diferentes módulos de nuestro proyecto final</description>
+    <description>Este proyecto agrupa los diferentes módulos de nuestro proyecto final unilocal</description>
 
     <properties>
         <java.version>11</java.version>
